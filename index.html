@@ -1,180 +1,305 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>تحالف الغدير - إبراهيم الشمري</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تحالف الغدير - إبراهيم الشمري</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Tajawal", "Noto Kufi Arabic", sans-serif;
+      background: linear-gradient(180deg, #0d1b2a, #1b263b);
+      color: #111827;
+      text-align: center;
+    }
 
-<!-- Tailwind (موجود مسبقاً عندك، يبقى أو تشيله) -->
-<script src="https://cdn.tailwindcss.com"></script>
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      margin: 30px auto;
+      padding: 24px 20px;
+      max-width: 430px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+    }
 
-<style>
-  /* خط Tajawal */
-  @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
+    h1, h2 {
+      margin: 8px 0;
+    }
 
-  :root{
-    --primary: #1d4ed8;
-    --page-start: #0d1b2a;
-    --page-end: #1b263b;
-  }
+    .number {
+      font-size: 14px;
+      background: #1d4ed8;
+      color: #fff;
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 10px;
+      margin-bottom: 16px;
+    }
 
-  html,body{height:100%}
-  body{
-    margin:0;
-    font-family:'Tajawal',sans-serif;
-    background: linear-gradient(180deg,var(--page-start),var(--page-end));
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:1rem;
-    box-sizing:border-box;
-  }
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      text-align: right;
+      margin: 14px 0 10px;
+      color: #1f2937;
+    }
 
-  /* البطاقة */
-  .card{
-    width:100%;
-    max-width:480px;
-    background:#fff;
-    border-radius:14px;
-    padding:20px;
-    box-shadow:0 12px 40px rgba(0,0,0,0.25);
-    animation: fadeInUp .45s ease both;
-  }
-  @keyframes fadeInUp { from{opacity:0; transform:translateY(18px)} to{opacity:1; transform:translateY(0)} }
+    ul.goals {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 18px;
+      text-align: right;
+    }
 
-  /* هيدر */
-  .header{ text-align:center; margin-bottom:6px; }
-  .header img{
-    width:130px; height:130px; border-radius:50%;
-    object-fit:cover; display:block; margin:0 auto 10px;
-    box-shadow:0 8px 22px rgba(0,0,0,0.26);
-  }
-  .candidate-title{ font-weight:900; font-size:22px; color:#08102a; margin:0; }
-  .candidate-sub{ color:#475569; font-size:14px; margin-top:6px; }
-  .number{ display:inline-block; margin-top:10px; background:var(--primary); color:#fff; padding:6px 12px; border-radius:10px; font-weight:700; }
+    ul.goals li {
+      padding: 6px 0;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-  /* نبذة */
-  .coalition-blurb{
-    background:#f8fafc; border-radius:12px; padding:12px 14px;
-    margin:14px 0; box-shadow:0 3px 10px rgba(10,20,40,0.04);
-    text-align:right;
-  }
-  .coalition-blurb h3{ margin:0 0 8px; font-size:16px; font-weight:800; display:flex; gap:8px; align-items:center; }
-  .coalition-blurb p{ margin:0; color:#374151; line-height:1.6; font-size:14.5px; }
+    ul.goals li span {
+      font-size: 18px;
+    }
 
-  /* عنوان الأهداف */
-  .section-title{
-    font-weight:800; font-size:18px; color:#0f172a;
-    text-align:right; border-right:4px solid var(--primary); padding-right:10px; margin:10px 0 8px;
-  }
+    .confirm-btn {
+      display: inline-block;
+      background: #1d4ed8;
+      color: #fff;
+      font-weight: 600;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 18px;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s;
+      cursor: pointer;
+      margin-top: 10px;
+    }
 
-  /* قائمة الأهداف: محاذاة صحيحة لليمين */
-  ul.goals{ list-style:none; padding:0; margin:0 0 12px auto; width:92%; max-width:420px; text-align:right; }
-  ul.goals li{
-    display:flex; align-items:center; justify-content:flex-end; gap:10px;
-    padding:8px 6px; color:#374151; font-size:15px; border-radius:8px;
-  }
-  .goal-text{ text-align:right; }    /* النص دائما باليمين */
-  .goal-ico{ flex:0 0 30px; font-size:20px; }
+    .confirm-btn:hover {
+      background: #2563eb;
+      transform: scale(1.05);
+    }
 
-  /* زر التأكيد */
-  .confirm-btn{
-    background:var(--primary); color:#fff; padding:10px 18px; border-radius:10px; border:none;
-    font-weight:800; cursor:pointer; box-shadow:0 8px 26px rgba(29,78,216,0.22);
-    transition:transform .12s ease, box-shadow .12s ease;
-  }
-  .confirm-btn:hover{ transform:translateY(-3px); box-shadow:0 12px 30px rgba(29,78,216,0.28); }
+    /* الفورم */
+    .form-container {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-top: 20px;
+      text-align: right;
+      transition: max-height 0.6s ease, opacity 0.6s ease;
+    }
+    .form-container.active {
+      max-height: 500px;
+      opacity: 1;
+    }
+    .form-container input, .form-container button {
+      width: 100%;
+      padding: 8px 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 15px;
+    }
+    .form-container button {
+      background: #1d4ed8;
+      color: #fff;
+      font-weight: 600;
+      font-size: 16px;
+      border: none;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .form-container button:hover {
+      background: #2563eb;
+      transform: scale(1.05);
+    }
 
-  /* الفوتر بداخ البطاقة */
-  .card-footer{
-    margin-top:16px; border-top:1px solid #eef2ff; padding-top:12px; text-align:center; color:#374151; font-size:13px;
-    display:flex; align-items:center; justify-content:center; gap:8px;
-  }
-  .card-footer a{ color:#0ea5ff; font-weight:700; text-decoration:none; }
-  .card-footer a:hover{ text-decoration:underline; color:#0959b9; }
+    /* رسالة الشكر */
+    .thank-you {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 14px;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-weight: 600;
+      font-size: 16px;
+      transition: max-height 0.8s ease, opacity 0.8s ease;
+    }
+    .thank-you.active {
+      max-height: 1000px;
+      opacity: 1;
+    }
 
-  /* مودال */
-  .modal-overlay{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.6); z-index:60; padding:1rem; }
-  .modal-overlay.active{ display:flex; }
-  .modal-card{ width:100%; max-width:420px; background:white; border-radius:12px; padding:18px; box-shadow:0 16px 44px rgba(0,0,0,0.3); }
+    /* صور المرشح مع tooltip */
+    .candidate-images {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .tooltip img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+    .tooltip:hover img {
+      transform: scale(1.1);
+    }
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: max-content;
+      background-color: rgba(0,0,0,0.75);
+      color: #fff;
+      text-align: center;
+      padding: 5px 10px;
+      border-radius: 6px;
+      position: absolute;
+      z-index: 1;
+      bottom: 130%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 14px;
+      pointer-events: none;
+    }
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
 
-  /* شاشة الشكر + سلايدشو */
-  .success-screen{
-    position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:linear-gradient(180deg,var(--primary),#0e3aa8);
-    color:white; z-index:70; padding:1rem; text-align:center;
-  }
-  .success-screen.visible{ display:flex; flex-direction:column; gap:18px; }
+    .page-footer {
+      background: transparent;
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 13px;
+      color: #6b7280;
+    }
+    .footer-inner {
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+    }
+    .insta-link {
+      text-decoration:none;
+      color:#0a66c2;
+      font-weight:600;
+      transition: color 0.3s;
+    }
+    .insta-link:hover {
+      color:#2563eb;
+    }
 
-  .slideshow-container{
-    position:relative; width:380px; max-width:92%; height:220px; border-radius:12px; overflow:hidden;
-    box-shadow:0 20px 40px rgba(0,0,0,0.35);
-    background:#fff;
-  }
-  .slide{
-    position:absolute; inset:0; display:flex; align-items:center; justify-content:center; flex-direction:column;
-    color:white; padding:18px; transition:opacity 800ms ease; opacity:0;
-    background-size:cover; background-position:center;
-  }
-  .slide.active{ opacity:1; z-index:2; }
-
-  .slide h4{ margin:0 0 6px; font-size:18px; font-weight:800; text-shadow:0 3px 14px rgba(0,0,0,0.35); }
-  .slide p{ margin:0; opacity:0.95; max-width:90%; text-shadow:0 2px 8px rgba(0,0,0,0.25) }
-
-  @media (max-width:480px){
-    .header img{ width:110px; height:110px; }
-    .slideshow-container{ height:180px; }
-    .slide h4{ font-size:16px; }
-  }
-</style>
+    @media (max-width:480px) {
+      .card { margin: 16px; padding: 18px; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- شاشة الشكر (تظهر بعد التأكيد) -->
-  <div id="successScreen" class="success-screen" aria-hidden="true">
-    <div>
-      <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="white">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-      </svg>
-    </div>
-
-    <div style="max-width:720px;">
-      <h2 style="margin:0;font-size:22px;font-weight:900;">تم تسجيل دعمك بنجاح!</h2>
-      <p style="margin:6px 0 0;opacity:0.95;">شكراً لدعمك حملة "تحالف الغدير" — دعمك يبني الأمل.</p>
-    </div>
-
-    <div id="slideshowContainer" class="slideshow-container" aria-hidden="false"></div>
-  </div>
-
-  <!-- البطاقة الرئيسية (كل شيء داخل الإطار الأبيض) -->
-  <main class="card" id="campaignCard" role="main">
-    <header class="header" role="banner">
-      <!-- استبدل candidate.png بصورة المرشح داخل المستودع -->
-      <img id="candidateImg" src="candidate.png" alt="صورة المرشح إبراهيم الشمري" />
-      <div class="candidate-title">تحالف الغدير</div>
-      <div class="candidate-title" style="font-size:20px;">إبراهيم الشمري</div>
-      <div class="candidate-sub">المهندس - إجيـتك يا الفقير</div>
+  <div class="card">
+    <div class="header">
+      <img src="image1.jpg" alt="صورة المرشح" />
+      <h1>تحالف الغدير</h1>
+      <h1>إبراهيم الشمري</h1>
+      <h2>المهندس - إجيـتك يا الفقير</h2>
       <div class="number">رقم: 187</div>
-    </header>
+    </div>
 
-    <!-- النبذة تحت الاسم مباشرة -->
-    <section class="coalition-blurb" aria-labelledby="coalitionTitle">
-      <h3 id="coalitionTitle">📜 نبذة عن التحالف</h3>
-      <p>
-        تحالف الغدير — تحالف عراقي أصيل، رئيس التحالف والمرشح هو <strong>إبراهيم الشمري</strong>.
-        راح نعمر البلاد، نرجع الأمل ونبني المستقبل بإيدين أهلنا الطيبين، بإصرار وعزيمة
-        من أجل عراق أفضل لكل أبنائه.
-      </p>
-    </section>
-
-    <!-- أهداف الحملة (محاذاة صحيحة لليمين) -->
     <div class="section-title">أهداف الحملة</div>
-    <ul class="goals" aria-label="أهداف الحملة">
-      <!-- ملاحظة: ترتيب العنصر: أولاً نص الهدف (يظهر على اليمين)، ثم الأيقونة --> 
-      <li><span class="goal-text">تحتاني وطوبه.</span><span class="goal-ico" aria-hidden="true">🐑</span></li>
-      <li><span class="goal-text">دعم البنية التحتية الرياضية.</span><span class="goal-ico" aria-hidden="true">✅</span></li>
-      <li><span class="goal-text">التحول الرقمي للحكومة.</span><span class="goal-ico" aria-hidden="true">💻</span></li>
-      <li><span class="goal-text">تطوير التعليم وربطه بالعمل.</span><span class="goal-ico" aria-hidden="true">🎓</span></li>
+    <ul class="goals">
+      <li><span>🐑</span> تحتاني وطوبه.</li>
+      <li><span>✅</span> دعم البنية التحتية الرياضية.</li>
+      <li><span>💻</span> التحول الرقمي للحكومة.</li>
+      <li><span>🎓</span> تطوير التعليم وربطه بالعمل.</li>
     </ul>
 
-    <div style="text-align:center; margin-top:8px;">
-      <button id="showModalBtn" class="confirm-btn" type="button">أؤ
+    <button class="confirm-btn" id="confirmBtn">أؤكد دعمي للمرشح</button>
+
+    <!-- نموذج المعلومات -->
+    <div class="form-container" id="formContainer">
+      <h3>يرجى إدخال معلوماتك:</h3>
+      <input type="text" id="name" placeholder="الاسم الكامل" required />
+      <input type="text" id="number" placeholder="الرقم" required />
+      <input type="text" id="favoriteFood" placeholder="أكلتك المفضلة" required />
+      <button id="submitForm">إرسال</button>
+    </div>
+
+    <!-- رسالة الشكر -->
+    <div class="thank-you" id="thankYouMsg">
+      <p>🎉 شكرًا لدعمك المرشح إبراهيم الشمري! 🙏</p>
+      <div class="candidate-images">
+        <div class="tooltip">
+          <img src="image1.jpg" alt="المرشح 1" />
+          <span class="tooltiptext">إبراهيم الشمري - صورة 1</span>
+        </div>
+        <div class="tooltip">
+          <img src="image2.jpg" alt="المرشح 2" />
+          <span class="tooltiptext">إبراهيم الشمري - صورة 2</span>
+        </div>
+        <div class="tooltip">
+          <img src="image3.jpg" alt="المرشح 3" />
+          <span class="tooltiptext">إبراهيم الشمري - صورة 3</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <div class="footer-inner">
+      <span>تم التصميم بواسطة:</span>
+      <a href="https://www.instagram.com/y_0h_/" target="_blank" class="insta-link">@y_0h_</a>
+    </div>
+  </footer>
+
+  <script>
+    const confirmBtn = document.getElementById('confirmBtn');
+    const formContainer = document.getElementById('formContainer');
+    const submitForm = document.getElementById('submitForm');
+    const thankYouMsg = document.getElementById('thankYouMsg');
+
+    confirmBtn.addEventListener('click', () => {
+      confirmBtn.style.display = 'none';
+      formContainer.classList.add('active');
+      formContainer.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    submitForm.addEventListener('click', () => {
+      const name = document.getElementById('name').value.trim();
+      const number = document.getElementById('number').value.trim();
+      const food = document.getElementById('favoriteFood').value.trim();
+
+      if(name === "" || number === "" || food === "") {
+        alert("يرجى ملء جميع الحقول!");
+        return;
+      }
+
+      formContainer.classList.remove('active');
+      thankYouMsg.classList.add('active');
+      thankYouMsg.scrollIntoView({ behavior: 'smooth' });
+      console.log(`دعم من: ${name}, الرقم: ${number}, الأكلة: ${food}`);
+    });
+  </script>
+
+</body>
+</html>
