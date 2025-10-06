@@ -1,253 +1,337 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تحالف الغدير - إبراهيم الشمري</title>
-<style>
-body {
-  margin:0;
-  font-family:"Tajawal",sans-serif;
-  background: linear-gradient(180deg, #0d1b2a, #1b263b);
-  color:#111827;
-  text-align:center;
-}
-.card {
-  background:#f8fafc;
-  border-radius:25px;
-  margin:30px auto;
-  padding:35px 25px;
-  max-width:600px;
-  box-shadow:0 15px 40px rgba(0,0,0,0.25);
-}
-h1,h2,h3 { margin:10px 0;}
-.header {
-  background:#e2e8f0;
-  padding:20px;
-  border-radius:20px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.15);
-}
-.header img {
-  width:150px;
-  height:150px;
-  border-radius:50%;
-  object-fit:cover;
-  margin-bottom:15px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.4);
-}
-h1 { font-size:28px; font-weight:700; color:#0f172a;}
-h2 { font-size:17px; color:#1e293b;}
-.number {
-  font-size:15px;
-  background:#2563eb;
-  color:#fff;
-  display:inline-block;
-  padding:6px 14px;
-  border-radius:15px;
-  margin-bottom:16px;
-}
-.coalition-blurb {
-  background:#f1f5f9;
-  border-radius:20px;
-  padding:20px 18px;
-  margin:25px 0;
-  text-align:right;
-  color:#1e293b;
-  font-size:15px;
-  line-height:1.7;
-  box-shadow:0 8px 25px rgba(0,0,0,0.1);
-}
-.coalition-blurb h3 {
-  margin-bottom:12px;
-  font-size:19px;
-  font-weight:700;
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-.section-title { font-size:19px; font-weight:700; text-align:right; margin:18px 0 12px; color:#1f2937;}
-ul.goals { list-style:none; padding:0; margin:0 0 22px; text-align:right;}
-ul.goals li { padding:8px 0; font-size:16px; display:flex; align-items:center; gap:12px;}
-ul.goals li span { font-size:20px;}
-.confirm-btn {
-  display:inline-block;
-  background:#1d4ed8;
-  color:#fff;
-  font-weight:700;
-  font-size:18px;
-  border:none;
-  border-radius:15px;
-  padding:14px 25px;
-  text-decoration:none;
-  transition:background 0.3s, transform 0.2s;
-  cursor:pointer;
-  margin-top:20px;
-}
-.confirm-btn:hover { background:#2563eb; transform:scale(1.05);}
-.form-container {
-  max-height:0;
-  opacity:0;
-  overflow:hidden;
-  margin-top:20px;
-  text-align:right;
-  transition:max-height 0.6s ease, opacity 0.6s ease;
-}
-.form-container.active { max-height:500px; opacity:1;}
-.form-container input, .form-container button {
-  width:100%;
-  padding:12px 14px;
-  margin:10px 0;
-  border-radius:12px;
-  border:1px solid #cbd5e1;
-  font-size:16px;
-}
-.form-container button {
-  background:#1d4ed8;
-  color:#fff;
-  font-weight:700;
-  font-size:18px;
-  border:none;
-  margin-top:12px;
-  cursor:pointer;
-  transition:background 0.3s, transform 0.2s;
-}
-.form-container button:hover { background:#2563eb; transform:scale(1.05);}
-.thank-you {
-  max-height:0;
-  opacity:0;
-  overflow:hidden;
-  margin-top:25px;
-  padding:20px;
-  border-radius:20px;
-  background:#e0f2fe;
-  color:#0369a1;
-  font-weight:700;
-  font-size:17px;
-  transition:max-height 0.8s ease, opacity 0.8s ease;
-}
-.thank-you.active { max-height:2200px; opacity:1;}
-.image-slider { position: relative; width:350px; height:220px; margin:25px auto; overflow:visible;}
-.slider-image {
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%) scale(0.6);
-  opacity:0.4;
-  transition: all 0.5s ease;
-}
-.slider-image img {
-  width:160px;
-  height:160px;
-  border-radius:50%;
-  object-fit:cover;
-  box-shadow:0 6px 20px rgba(0,0,0,0.35);
-  transition: transform 0.3s;
-}
-.slider-image.active img:hover { transform: scale(1.1);}
-.slider-image.active { transform:translate(-50%,-50%) scale(1); opacity:1; z-index:2;}
-.slider-image.prev { transform:translate(-130%,-50%) scale(0.75); opacity:0.5; z-index:1;}
-.slider-image.next { transform:translate(30%,-50%) scale(0.75); opacity:0.5; z-index:1;}
-.page-footer { background:transparent; margin-top:30px; padding:12px; font-size:14px; color:#6b7280;}
-.footer-inner { display:flex; justify-content:center; align-items:center; gap:8px;}
-.insta-link { text-decoration:none; color:#0a66c2; font-weight:600; transition: color 0.3s;}
-.insta-link:hover { color:#2563eb;}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تحالف الغدير - المهندس إبراهيم الشمري</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Tajawal", "Noto Kufi Arabic", sans-serif;
+      background: linear-gradient(180deg, #0d1b2a, #1b263b);
+      color: #111827;
+      text-align: center;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      margin: 30px auto;
+      padding: 24px 20px;
+      max-width: 450px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      margin: 8px 0 4px;
+      font-size: 24px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    h2 {
+      font-size: 15px;
+      color: #475569;
+      margin-bottom: 8px;
+    }
+
+    .number {
+      font-size: 14px;
+      background: #1d4ed8;
+      color: #fff;
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 10px;
+      margin-bottom: 16px;
+    }
+
+    /* نبذة */
+    .coalition-blurb {
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 20px;
+      text-align: right;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    }
+
+    .coalition-blurb h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .coalition-blurb p {
+      margin: 0;
+      color: #334155;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      text-align: right;
+      margin: 14px 0 10px;
+      color: #1f2937;
+    }
+
+    ul.goals {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 18px;
+      text-align: right;
+    }
+
+    ul.goals li {
+      padding: 6px 0;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    ul.goals li span {
+      font-size: 18px;
+    }
+
+    .confirm-btn {
+      display: inline-block;
+      background: #1d4ed8;
+      color: #fff;
+      font-weight: 600;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 18px;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .confirm-btn:hover {
+      background: #2563eb;
+      transform: scale(1.05);
+    }
+
+    /* الفورم */
+    .form-container {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-top: 20px;
+      text-align: right;
+      transition: max-height 0.6s ease, opacity 0.6s ease;
+    }
+    .form-container.active {
+      max-height: 500px;
+      opacity: 1;
+    }
+    .form-container input, .form-container button {
+      width: 100%;
+      padding: 8px 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 15px;
+    }
+    .form-container button {
+      background: #1d4ed8;
+      color: #fff;
+      font-weight: 600;
+      font-size: 16px;
+      border: none;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .form-container button:hover {
+      background: #2563eb;
+      transform: scale(1.05);
+    }
+
+    /* رسالة الشكر */
+    .thank-you {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 14px;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-weight: 600;
+      font-size: 16px;
+      transition: max-height 0.8s ease, opacity 0.8s ease;
+    }
+    .thank-you.active {
+      max-height: 1000px;
+      opacity: 1;
+    }
+
+    /* صور المرشح - دوران ناعم مع Blur */
+    .candidate-images {
+      position: relative;
+      width: 320px;
+      height: 320px;
+      margin: 40px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .candidate-images img {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      opacity: 0.5;
+      filter: blur(2px);
+      transform: scale(1);
+      transition: all 0.9s ease;
+    }
+
+    .candidate-images img.active {
+      opacity: 1;
+      filter: blur(0);
+      transform: scale(1.4);
+      z-index: 10;
+    }
+
+    .page-footer {
+      background: transparent;
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .footer-inner {
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+    }
+
+    .insta-link {
+      text-decoration:none;
+      color:#0a66c2;
+      font-weight:600;
+      transition: color 0.3s;
+    }
+
+    .insta-link:hover {
+      color:#2563eb;
+    }
+  </style>
 </head>
 <body>
 
-<div class="card">
-  <div class="header">
-    <!-- صورة الهيدر -->
-    <img src="ibrahim.jpg" alt="صورة المرشح">
-    <h1>المهندس إبراهيم الشمري</h1>
-    <h2>إجيـتك يا الفقير</h2>
-    <div class="number">رقم: 187</div>
-  </div>
+  <div class="card">
+    <div class="header">
+      <img src="main.jpg" alt="صورة المرشح" />
+      <h1>المهندس إبراهيم الشمري</h1>
+      <h2>إجيـتك يا الفقير</h2>
+      <div class="number">رقم: 187</div>
+    </div>
 
-  <div class="coalition-blurb">
-    <h3>📜 نبذة عن التحالف</h3>
-    <p>تحالف الغدير هو تحالف عراقي أصيل، يقوده المهندس إبراهيم الشمري من أهالي الغدير. يسعى لتطوير البلاد، دعم الرياضة العراقية، التعليم والتحول الرقمي، وتحسين جودة حياة المواطنين.</p>
-  </div>
+    <div class="coalition-blurb">
+      <h3>📜 نبذة عن التحالف</h3>
+      <p>
+        المهندس <strong>إبراهيم الشمري</strong> من أهالي الغدير، يسعى لتطوير البلاد
+        والنهوض بالرياضة العراقية، ودعم الشباب والمشاريع الصغيرة — بحب الوطن
+        وإصرار لبناء مستقبل أفضل. هدفه تحسين الخدمات والبنية التحتية
+        والنهوض بالكرة العراقية والفلافل معًا ✨.
+      </p>
+    </div>
 
-  <div class="section-title">أهداف الحملة</div>
-  <ul class="goals">
-    <li><span>🐑</span> تحتاني وطوبه.</li>
-    <li><span>✅</span> دعم البنية التحتية الرياضية.</li>
-    <li><span>💻</span> التحول الرقمي للحكومة.</li>
-    <li><span>🎓</span> تطوير التعليم وربطه بالعمل.</li>
-  </ul>
+    <div class="section-title">🎯 أهداف الحملة</div>
+    <ul class="goals">
+      <li><span>✅</span> دعم البنية التحتية الرياضية.</li>
+      <li><span>💻</span> التحول الرقمي للحكومة.</li>
+      <li><span>🎓</span> تطوير التعليم وربطه بسوق العمل.</li>
+      <li><span>🍔</span> دعم مشاريع الشباب الغذائية (مثل الفلافل 😋).</li>
+    </ul>
 
-  <button class="confirm-btn" id="confirmBtn">أؤكد دعمي للمرشح</button>
+    <button class="confirm-btn" id="confirmBtn">أؤكد دعمي للمرشح</button>
 
-  <div class="form-container" id="formContainer">
-    <h3>يرجى إدخال معلوماتك:</h3>
-    <input type="text" id="name" placeholder="الاسم الكامل" required>
-    <input type="text" id="number" placeholder="الرقم" required>
-    <input type="text" id="favoriteFood" placeholder="أكلتك المفضلة" required>
-    <button id="submitForm">إرسال</button>
-  </div>
+    <div class="form-container" id="formContainer">
+      <h3>يرجى إدخال معلوماتك:</h3>
+      <input type="text" id="name" placeholder="الاسم الكامل" required />
+      <input type="text" id="number" placeholder="الرقم" required />
+      <input type="text" id="favoriteFood" placeholder="أكلتك المفضلة" required />
+      <button id="submitForm">إرسال</button>
+    </div>
 
-  <div class="thank-you" id="thankYouMsg">
-    <p>🎉 شكرًا لدعمك المرشح إبراهيم الشمري! 🙏</p>
-    <div class="image-slider">
-      <div class="slider-image active"><img src="image1.jpg" alt="المرشح 1"></div>
-      <div class="slider-image prev"><img src="image2.jpg" alt="المرشح 2"></div>
-      <div class="slider-image next"><img src="image3.jpg" alt="المرشح 3"></div>
+    <div class="thank-you" id="thankYouMsg">
+      <p>🎉 شكرًا لدعمك المرشح المهندس إبراهيم الشمري! 🙏</p>
+      <div class="candidate-images" id="imageSlider">
+        <img src="image1.jpg" alt="صورة 1" class="active" />
+        <img src="image2.jpg" alt="صورة 2" />
+        <img src="image3.jpg" alt="صورة 3" />
+      </div>
     </div>
   </div>
-</div>
 
-<footer class="page-footer">
-  <div class="footer-inner">
-    <span>تم التصميم بواسطة:</span>
-    <a href="https://www.instagram.com/y_0h_/" target="_blank" class="insta-link">@y_0h_</a>
-  </div>
-</footer>
+  <footer class="page-footer">
+    <div class="footer-inner">
+      <span>تم التصميم بواسطة:</span>
+      <a href="https://www.instagram.com/y_0h_/" target="_blank" class="insta-link">@y_0h_</a>
+    </div>
+  </footer>
 
-<script>
-const confirmBtn = document.getElementById('confirmBtn');
-const formContainer = document.getElementById('formContainer');
-const submitForm = document.getElementById('submitForm');
-const thankYouMsg = document.getElementById('thankYouMsg');
-const slides = document.querySelectorAll('.slider-image');
-let current = 0;
+  <script>
+    const confirmBtn = document.getElementById('confirmBtn');
+    const formContainer = document.getElementById('formContainer');
+    const submitForm = document.getElementById('submitForm');
+    const thankYouMsg = document.getElementById('thankYouMsg');
 
-confirmBtn.addEventListener('click', () => {
-  confirmBtn.style.display = 'none';
-  formContainer.classList.add('active');
-  formContainer.scrollIntoView({ behavior: 'smooth' });
-});
-
-submitForm.addEventListener('click', () => {
-  const name = document.getElementById('name').value.trim();
-  const number = document.getElementById('number').value.trim();
-  const food = document.getElementById('favoriteFood').value.trim();
-  if(name === "" || number === "" || food === "") {
-    alert("يرجى ملء جميع الحقول!");
-    return;
-  }
-
-  formContainer.classList.remove('active');
-  thankYouMsg.classList.add('active');
-  thankYouMsg.scrollIntoView({ behavior: 'smooth' });
-  console.log(`دعم من: ${name}, الرقم: ${number}, الأكلة: ${food}`);
-
-  function updateSlides() {
-    slides.forEach((slide, i) => {
-      slide.classList.remove('active','prev','next');
-      if(i === current) slide.classList.add('active');
-      else if(i === (current-1+slides.length)%slides.length) slide.classList.add('prev');
-      else if(i === (current+1)%slides.length) slide.classList.add('next');
+    confirmBtn.addEventListener('click', () => {
+      confirmBtn.style.display = 'none';
+      formContainer.classList.add('active');
+      formContainer.scrollIntoView({ behavior: 'smooth' });
     });
-  }
 
-  updateSlides();
-  setInterval(() => {
-    current = (current+1)%slides.length;
-    updateSlides();
-  },3000);
-});
-</script>
+    submitForm.addEventListener('click', () => {
+      const name = document.getElementById('name').value.trim();
+      const number = document.getElementById('number').value.trim();
+      const food = document.getElementById('favoriteFood').value.trim();
+
+      if(name === "" || number === "" || food === "") {
+        alert("يرجى ملء جميع الحقول!");
+        return;
+      }
+
+      formContainer.classList.remove('active');
+      thankYouMsg.classList.add('active');
+      thankYouMsg.scrollIntoView({ behavior: 'smooth' });
+      console.log(`دعم من: ${name}, الرقم: ${number}, الأكلة: ${food}`);
+    });
+
+    // دوران الصور مع تأثير ناعم
+    const images = document.querySelectorAll('#imageSlider img');
+    let current = 0;
+
+    setInterval(() => {
+      images[current].classList.remove('active');
+      current = (current + 1) % images.length;
+      images[current].classList.add('active');
+    }, 2500);
+  </script>
 
 </body>
 </html>
