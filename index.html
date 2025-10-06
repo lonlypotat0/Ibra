@@ -83,6 +83,8 @@ body {
   width:400px;
   height:260px;
   border-radius:0.75rem;
+  /* تم تعديل الخلفية إلى الأبيض لملء الفراغ الذي يظهر بعد تصغير الصورة */
+  background-color: white; 
   overflow:hidden;
   margin-top:1.5rem;
   /* إضافة إطار النقش */
@@ -97,7 +99,8 @@ body {
   position:absolute;
   width:100%;
   height:100%;
-  object-fit:cover;
+  /* التعديل هنا: استخدام contain لعرض الصورة كاملة دون قص */
+  object-fit: contain; 
   opacity:0;
   transition:opacity 1.2s ease-in-out;
 }
@@ -189,7 +192,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   const form=document.getElementById("supportForm");
   const slideshowContainer=document.getElementById("slideshowContainer");
 
-  // إعادة تفعيل عرض الشرائح
+  // عرض الشرائح
   const slideshowImages=["image.png","image1.png","image2.png","image3.png"];
   let currentSlide=0;
 
@@ -217,7 +220,6 @@ document.addEventListener("DOMContentLoaded",()=>{
     e.preventDefault();
     modal.classList.remove("active");
     setTimeout(()=>{
-      // تم إبقاء البطاقة وشاشة النجاح معاً
       successScreen.classList.add("visible");
       startSlideshow(); // بدء عرض الشرائح
     },300);
