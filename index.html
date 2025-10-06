@@ -6,13 +6,11 @@
 <title>إبراهيم الشمري - تحالف الغدير</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-/* تم استبدال خط Cairo بخط Tajawal */
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
 
 body {
   font-family: 'Tajawal', sans-serif;
   background-color: #0b1a2e;
-  /* تأثير خفيف في الخلفية */
   background-image: radial-gradient(circle at top left, rgba(23, 72, 128, 0.2) 0%, transparent 50%),
                     radial-gradient(circle at bottom right, rgba(255,255,255,0.05) 0%, transparent 60%);
   overflow-x: hidden;
@@ -24,7 +22,6 @@ body {
   color: #fff;
 }
 
-/* تم تغيير اللون الأساسي إلى الأزرق الداكن (#174880) لإحساس أكثر وقارًا */
 .campaign-primary { color: #174880; }
 .campaign-bg { background-color: #174880; }
 .card-shadow { box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
@@ -36,7 +33,6 @@ body {
   position: relative;
   padding-top: 2rem;
   padding-bottom: 3rem;
-  /* استخدام اللون الجديد */
   border-bottom: 5px solid #174880;
 }
 .candidate-photo {
@@ -58,12 +54,11 @@ body {
 }
 .modal-overlay.active { opacity: 1; display: flex; }
 
-/* شاشة النجاح: لون مختلف ومريح */
 .success-screen {
   position: fixed;
   top:0; left:0;
   width:100%; height:100%;
-  background: linear-gradient(135deg,#174880,#3973b0); /* تم تغيير لون النجاح للأزرق */
+  background: linear-gradient(135deg,#174880,#3973b0);
   color:white;
   display:flex;
   flex-direction:column;
@@ -78,36 +73,30 @@ body {
 }
 .success-screen.visible { opacity:1; visibility:visible; }
 
+/* ✅ التعديلات المطلوبة هنا */
 .slideshow-container {
   position:relative;
-  width:400px;
-  height:260px;
-  border-radius:0.75rem;
-  /* تم تعديل الخلفية إلى الأبيض لملء الفراغ الذي يظهر بعد تصغير الصورة */
-  background-color: white; 
+  width:300px;
+  height:300px; /* لجعلها مربعة */
+  border-radius:20px; /* زوايا منحنية */
+  background-color:white;
   overflow:hidden;
   margin-top:1.5rem;
-  /* إضافة إطار النقش */
-  border: 25px solid transparent;
-  padding: 0;
-  /* استخدام خاصية border-image لإضافة النقش */
-  /* يجب توفير صورة النقش (border-pattern.png) */
-  border-image: url('border-pattern.png') 30 round;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  border:4px solid white; /* إطار أبيض نحيف */
+  box-shadow:0 0 15px rgba(0,0,0,0.3);
 }
 .slideshow-image {
   position:absolute;
   width:100%;
   height:100%;
-  /* التعديل هنا: استخدام contain لعرض الصورة كاملة دون قص */
-  object-fit: contain; 
+  object-fit:cover; /* تغطية كاملة بدون قص ظاهر */
+  border-radius:20px; /* نفس الانحناء */
   opacity:0;
   transition:opacity 1.2s ease-in-out;
 }
 .slideshow-image.active { opacity:1; }
 
 .vote-btn {
-  /* استخدام اللون الجديد */
   background-image: linear-gradient(45deg, #174880 0%, #3973b0 100%);
   transition: all 0.3s ease;
 }
@@ -125,7 +114,7 @@ body {
   <p class="text-lg mb-6">شكراً لدعمك حملة "تحالف الغدير"</p>
   
   <div id="slideshowContainer" class="slideshow-container">
-     </div>
+  </div>
 </div>
 
 <div id="campaignCard" class="max-w-xs w-full bg-white rounded-xl overflow-hidden card-shadow text-gray-800">
@@ -192,7 +181,6 @@ document.addEventListener("DOMContentLoaded",()=>{
   const form=document.getElementById("supportForm");
   const slideshowContainer=document.getElementById("slideshowContainer");
 
-  // عرض الشرائح
   const slideshowImages=["image.png","image1.png","image2.png","image3.png"];
   let currentSlide=0;
 
@@ -221,7 +209,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     modal.classList.remove("active");
     setTimeout(()=>{
       successScreen.classList.add("visible");
-      startSlideshow(); // بدء عرض الشرائح
+      startSlideshow();
     },300);
     form.reset();
   });
