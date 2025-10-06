@@ -5,12 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>تحالف الغدير - إبراهيم الشمري</title>
   <style>
+    /* استيراد خط Tajawal */
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
+    
     body {
       margin: 0;
       font-family: "Tajawal", "Noto Kufi Arabic", sans-serif;
+      /* خلفية متدرجة داكنة */
       background: linear-gradient(180deg, #0d1b2a, #1b263b);
       color: #111827;
       text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     .card {
@@ -20,14 +29,22 @@
       padding: 24px 20px;
       max-width: 430px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      animation: fadeInUp 1s ease;
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     .header img {
+      /* الصورة: تأكد أن اسم ملفك هو candidate.png */
       width: 130px;
       height: 130px;
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
 
     h1 {
@@ -43,9 +60,10 @@
       margin-bottom: 8px;
     }
 
+    /* اللون الأزرق الداكن لرقم المرشح */
     .number {
       font-size: 14px;
-      background: #1d4ed8;
+      background: #1d4ed8; 
       color: #fff;
       display: inline-block;
       padding: 4px 10px;
@@ -59,82 +77,88 @@
       text-align: right;
       margin: 14px 0 10px;
       color: #1f2937;
+      border-right: 4px solid #1d4ed8; /* خط أزرق بجانب العنوان */
+      padding-right: 8px;
     }
 
     ul.goals {
       list-style: none;
       padding: 0;
       margin: 0 0 18px;
+      /* تعديل المحاذاة */
       text-align: right;
+      /* حل مشكلة الزحف */
+      max-width: 300px; /* تحديد عرض للقائمة */
+      margin-right: auto; /* يجعل القائمة بالكامل محاذاة لليمين ضمن البطاقة */
+      margin-left: auto;
     }
 
     ul.goals li {
-      padding: 6px 0;
+      padding: 8px 0; /* زيادة التباعد بين الأهداف */
       font-size: 15px;
       display: flex;
       align-items: center;
       gap: 8px;
+      color: #374151;
+      /* إجبار النص على البقاء على سطر واحد لمنع الرموز من الانفصال */
+      white-space: nowrap; 
     }
 
     ul.goals li span {
-      font-size: 18px;
+      font-size: 20px; /* تكبير رمز الإيموجي قليلاً */
     }
 
-    /* قسم إضافي */
-    .campaign-extra {
-      background: #ffffff; 
-      border-radius: 14px; 
-      padding: 18px; 
-      margin-top: 14px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-      font-family: "Tajawal", sans-serif;
-      color: #1f2d3d;
+    /* نبذة عن التحالف */
+    .coalition-blurb {
+      background: #f8fafc; /* خلفية فاتحة للنبذة */
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom: 18px;
       text-align: right;
+      animation: fadeIn 1.2s ease;
     }
 
-    .extra-row {
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom: 12px;
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
-    .extra-icon {
-      font-size: 26px;
-      line-height: 1;
-    }
-
-    .extra-title {
+    .coalition-blurb h3 {
+      margin: 0 0 10px;
       font-size: 18px;
-      margin: 0;
       font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #1d4ed8; /* لون العنوان داخل النبذة */
     }
 
     .coalition-blurb p {
       margin: 0;
-      padding: 10px 6px;
       color: #334155;
       font-size: 15px;
       line-height: 1.6;
-      border-top: 1px solid #e6eef7;
-      padding-top: 10px;
     }
 
     .confirm-btn {
-      display: inline-block;
+      display: block; /* جعل الزر يأخذ عرض البطاقة */
+      width: 100%;
       background: #1d4ed8;
       color: #fff;
-      font-weight: 600;
-      font-size: 16px;
+      font-weight: 700;
+      font-size: 18px;
       border: none;
-      border-radius: 10px;
-      padding: 10px 18px;
+      border-radius: 12px;
+      padding: 14px 18px;
       text-decoration: none;
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.3s;
+      box-shadow: 0 4px 15px rgba(29, 78, 216, 0.4);
     }
 
     .confirm-btn:hover {
       background: #2563eb;
+      transform: translateY(-2px);
     }
 
     .page-footer {
@@ -142,7 +166,8 @@
       margin-top: 20px;
       padding: 10px;
       font-size: 13px;
-      color: #6b7280;
+      color: #9ca3af; /* لون رمادي فاتح للحقوق */
+      animation: fadeIn 2s ease;
     }
 
     .footer-inner {
@@ -154,16 +179,18 @@
 
     .insta-link {
       text-decoration:none;
-      color:#0a66c2;
+      color:#60a5fa; /* لون فاتح للرابط */
       font-weight:600;
+      transition: color 0.3s;
     }
 
-    .insta-icon {
-      font-size:18px;
+    .insta-link:hover {
+      color:#3b82f6;
     }
-
+    
     @media (max-width:480px) {
       .card { margin: 16px; padding: 18px; }
+      .confirm-btn { font-size: 16px; padding: 12px 18px; }
     }
   </style>
 </head>
@@ -171,53 +198,46 @@
 
   <div class="card">
     <div class="header">
-      <img src="your-image.jpg" alt="صورة المرشح" />
+      <img src="candidate.png" alt="صورة المرشح" /> 
       <h1>تحالف الغدير</h1>
       <h1>إبراهيم الشمري</h1>
       <h2>المهندس - إجيـتك يا الفقير</h2>
       <div class="number">رقم: 187</div>
     </div>
 
+    <div class="coalition-blurb">
+      <h3>📜 نبذة عن التحالف</h3>
+      <p>
+        تحالف الغدير — تحالف عراقي أصيل، رئيس التحالف والمرشح هو <strong>إبراهيم الشمري</strong>.
+        راح نعمر البلاد، نرجع الأمل ونبني المستقبل بإيدين أهلنا الطيبين، بإصرار وعزيمة
+        من أجل عراق أفضل لكل أبنائه.
+      </p>
+    </div>
+
     <div class="section-title">أهداف الحملة</div>
     <ul class="goals">
+      <li><span>🐑</span> تحتاني وطوبه.</li>
+      
       <li><span>✅</span> دعم البنية التحتية الرياضية.</li>
       <li><span>💻</span> التحول الرقمي للحكومة.</li>
       <li><span>🎓</span> تطوير التعليم وربطه بالعمل.</li>
-      <li><span>🐑</span> تحتاني وطوبه.</li>
     </ul>
 
-    <a href="#" class="confirm-btn">أؤكد دعمي للمرشح</a>
-
-    <div class="campaign-extra">
-      <div class="extra-row">
-        <span class="extra-icon">🐑</span>
-        <h4 class="extra-title">تحتاني وطوبه</h4>
-      </div>
-      <div class="coalition-blurb">
-        <p>
-          تحالف الغدير — تحالف عراقي أصيل، رئيس التحالف والمرشح هو <strong>إبراهيم الشمري</strong>.
-          راح نعمر البلاد، نرجع الأمل ونبني المستقبل بإيدين أهلنا الطيبين.
-        </p>
-      </div>
-    </div>
-
+    <a href="javascript:void(0);" class="confirm-btn" onclick="alert('سيتم فتح نافذة التسجيل هنا')">أؤكد دعمي للمرشح</a>
   </div>
 
   <footer class="page-footer">
     <div class="footer-inner">
       <span>تم التصميم بواسطة:</span>
-      <a href="https://instagram.com/_y_0h" target="_blank" rel="noopener noreferrer" class="insta-link">@_y_0h</a>
-      <a href="https://instagram.com/_y_0h" target="_blank" rel="noopener noreferrer" aria-label="زيارة حساب الإنستغرام">
-        <span class="insta-icon">📸</span>
-      </a>
+      <a href="https://www.instagram.com/y_0h_/?igsh=enFxbWdkeXh0dG1o&utm_source=qr" target="_blank" rel="noopener noreferrer" class="insta-link">@y_0h_</a>
     </div>
   </footer>
 
   <script>
     document.addEventListener('click', function(e){
-      const a = e.target.closest('a[href*="instagram.com/_y_0h"]');
+      const a = e.target.closest('a[href*="instagram.com/y_0h_"]');
       if(!a) return;
-      console.log('تم النقر على حساب الإنستغرام @_y_0h');
+      console.log('تم النقر على حساب الإنستغرام @y_0h_');
     });
   </script>
 
