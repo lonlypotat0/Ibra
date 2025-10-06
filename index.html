@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تحالف الغدير - المهندس إبراهيم الشمري</title>
+<title>تحالف الغدير - إبراهيم الشمري</title>
 <style>
 body {
   margin:0;
@@ -13,69 +13,75 @@ body {
   text-align:center;
 }
 .card {
-  background:#fff;
-  border-radius:20px;
+  background:#f8fafc;
+  border-radius:25px;
   margin:30px auto;
-  padding:30px 25px;
-  max-width:550px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  padding:35px 25px;
+  max-width:600px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.25);
 }
 h1,h2,h3 { margin:10px 0;}
+.header {
+  background:#e2e8f0;
+  padding:20px;
+  border-radius:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.15);
+}
 .header img {
-  width:140px;
-  height:140px;
+  width:150px;
+  height:150px;
   border-radius:50%;
   object-fit:cover;
-  margin-bottom:12px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+  margin-bottom:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.4);
 }
-h1 { font-size:26px; font-weight:700; color:#0f172a;}
-h2 { font-size:16px; color:#475569;}
+h1 { font-size:28px; font-weight:700; color:#0f172a;}
+h2 { font-size:17px; color:#1e293b;}
 .number {
-  font-size:14px;
-  background:#1d4ed8;
+  font-size:15px;
+  background:#2563eb;
   color:#fff;
   display:inline-block;
-  padding:5px 12px;
-  border-radius:12px;
+  padding:6px 14px;
+  border-radius:15px;
   margin-bottom:16px;
 }
 .coalition-blurb {
   background:#f1f5f9;
-  border-radius:15px;
-  padding:18px 15px;
-  margin:20px 0;
+  border-radius:20px;
+  padding:20px 18px;
+  margin:25px 0;
   text-align:right;
   color:#1e293b;
   font-size:15px;
-  line-height:1.6;
-  box-shadow:0 6px 20px rgba(0,0,0,0.05);
+  line-height:1.7;
+  box-shadow:0 8px 25px rgba(0,0,0,0.1);
 }
 .coalition-blurb h3 {
-  margin-bottom:10px;
-  font-size:18px;
+  margin-bottom:12px;
+  font-size:19px;
   font-weight:700;
   display:flex;
   align-items:center;
-  gap:6px;
+  gap:8px;
 }
-.section-title { font-size:18px; font-weight:700; text-align:right; margin:15px 0 10px; color:#1f2937;}
-ul.goals { list-style:none; padding:0; margin:0 0 20px; text-align:right;}
-ul.goals li { padding:6px 0; font-size:15px; display:flex; align-items:center; gap:10px;}
-ul.goals li span { font-size:18px;}
+.section-title { font-size:19px; font-weight:700; text-align:right; margin:18px 0 12px; color:#1f2937;}
+ul.goals { list-style:none; padding:0; margin:0 0 22px; text-align:right;}
+ul.goals li { padding:8px 0; font-size:16px; display:flex; align-items:center; gap:12px;}
+ul.goals li span { font-size:20px;}
 .confirm-btn {
   display:inline-block;
   background:#1d4ed8;
   color:#fff;
-  font-weight:600;
-  font-size:16px;
+  font-weight:700;
+  font-size:18px;
   border:none;
-  border-radius:12px;
-  padding:12px 20px;
+  border-radius:15px;
+  padding:14px 25px;
   text-decoration:none;
   transition:background 0.3s, transform 0.2s;
   cursor:pointer;
-  margin-top:15px;
+  margin-top:20px;
 }
 .confirm-btn:hover { background:#2563eb; transform:scale(1.05);}
 .form-container {
@@ -89,19 +95,19 @@ ul.goals li span { font-size:18px;}
 .form-container.active { max-height:500px; opacity:1;}
 .form-container input, .form-container button {
   width:100%;
-  padding:10px 12px;
-  margin:8px 0;
-  border-radius:10px;
+  padding:12px 14px;
+  margin:10px 0;
+  border-radius:12px;
   border:1px solid #cbd5e1;
-  font-size:15px;
+  font-size:16px;
 }
 .form-container button {
   background:#1d4ed8;
   color:#fff;
-  font-weight:600;
-  font-size:16px;
+  font-weight:700;
+  font-size:18px;
   border:none;
-  margin-top:10px;
+  margin-top:12px;
   cursor:pointer;
   transition:background 0.3s, transform 0.2s;
 }
@@ -110,17 +116,17 @@ ul.goals li span { font-size:18px;}
   max-height:0;
   opacity:0;
   overflow:hidden;
-  margin-top:20px;
-  padding:18px;
-  border-radius:16px;
+  margin-top:25px;
+  padding:20px;
+  border-radius:20px;
   background:#e0f2fe;
   color:#0369a1;
-  font-weight:600;
-  font-size:16px;
+  font-weight:700;
+  font-size:17px;
   transition:max-height 0.8s ease, opacity 0.8s ease;
 }
-.thank-you.active { max-height:2000px; opacity:1;}
-.image-slider { position: relative; width:320px; height:200px; margin:20px auto; overflow:visible;}
+.thank-you.active { max-height:2200px; opacity:1;}
+.image-slider { position: relative; width:350px; height:220px; margin:25px auto; overflow:visible;}
 .slider-image {
   position:absolute;
   top:50%;
@@ -130,16 +136,18 @@ ul.goals li span { font-size:18px;}
   transition: all 0.5s ease;
 }
 .slider-image img {
-  width:150px;
-  height:150px;
+  width:160px;
+  height:160px;
   border-radius:50%;
   object-fit:cover;
-  box-shadow:0 4px 15px rgba(0,0,0,0.3);
+  box-shadow:0 6px 20px rgba(0,0,0,0.35);
+  transition: transform 0.3s;
 }
+.slider-image.active img:hover { transform: scale(1.1);}
 .slider-image.active { transform:translate(-50%,-50%) scale(1); opacity:1; z-index:2;}
-.slider-image.prev { transform:translate(-120%,-50%) scale(0.7); opacity:0.5; z-index:1;}
-.slider-image.next { transform:translate(20%,-50%) scale(0.7); opacity:0.5; z-index:1;}
-.page-footer { background:transparent; margin-top:25px; padding:12px; font-size:13px; color:#6b7280;}
+.slider-image.prev { transform:translate(-130%,-50%) scale(0.75); opacity:0.5; z-index:1;}
+.slider-image.next { transform:translate(30%,-50%) scale(0.75); opacity:0.5; z-index:1;}
+.page-footer { background:transparent; margin-top:30px; padding:12px; font-size:14px; color:#6b7280;}
 .footer-inner { display:flex; justify-content:center; align-items:center; gap:8px;}
 .insta-link { text-decoration:none; color:#0a66c2; font-weight:600; transition: color 0.3s;}
 .insta-link:hover { color:#2563eb;}
@@ -149,11 +157,10 @@ ul.goals li span { font-size:18px;}
 
 <div class="card">
   <div class="header">
-    <!-- هنا تم تغيير اسم الصورة إلى ibrahim.jpg -->
+    <!-- صورة الهيدر -->
     <img src="ibrahim.jpg" alt="صورة المرشح">
-    <h1>تحالف الغدير</h1>
-    <h1>إبراهيم الشمري</h1>
-    <h2>المهندس إبراهيم الشمري - إجيـتك يا الفقير</h2>
+    <h1>المهندس إبراهيم الشمري</h1>
+    <h2>إجيـتك يا الفقير</h2>
     <div class="number">رقم: 187</div>
   </div>
 
