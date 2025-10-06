@@ -9,270 +9,231 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
 
 body {
-    font-family: 'Cairo', sans-serif;
-    background: linear-gradient(135deg, #081425 0%, #0b1a2e 100%);
-    background-attachment: fixed;
-    color: #fff;
-    overflow-x: hidden;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
+  font-family: 'Cairo', sans-serif;
+  background-color: #0b1a2e;
+  background-image: radial-gradient(circle at top left, rgba(0, 123, 255, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.05) 0%, transparent 60%),
+                    url(''); /* يمكن إضافة نقش عراقي خفيف هنا */
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  position: relative;
+  color: #fff;
 }
 
-.campaign-primary {
-    color: #00a2ff;
-}
-.campaign-bg {
-    background: linear-gradient(45deg, #007bff, #00c6ff);
-}
-.card-shadow {
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-}
+/* الأزرق الأساسي */
+.campaign-primary { color: #007bff; }
+.campaign-bg { background-color: #007bff; }
+
+/* البطاقة */
+.card-shadow { box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
+
+/* الصورة */
 .candidate-header {
-    background: linear-gradient(135deg, #eaf3ff 0%, #f9fbff 100%);
-    border-radius: 12px 12px 0 0;
-    position: relative;
-    padding: 2rem 1rem 3rem;
-    border-bottom: 5px solid #00a2ff;
+  background-color: #f7f9fc;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+  position: relative;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+  border-bottom: 5px solid #007bff;
 }
 .candidate-photo {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    border: 6px solid #fff;
-    box-shadow: 0 0 15px rgba(0, 162, 255, 0.3);
-    object-fit: cover;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid white;
+  box-shadow: 0 0 0 5px #eef5ff;
 }
-.vote-btn {
-    background-image: linear-gradient(45deg, #007bff 0%, #00c6ff 100%);
-    transition: all 0.3s ease;
-}
-.vote-btn:hover {
-    box-shadow: 0 8px 25px rgba(0, 162, 255, 0.6);
-    transform: translateY(-3px);
-}
+
+/* Modal */
 .modal-overlay {
-    background-color: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
-    display: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 50;
+  background-color: rgba(0,0,0,0.8);
+  backdrop-filter: blur(6px);
+  z-index: 50;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
-.modal-overlay.active {
-    opacity: 1;
-    display: flex;
-}
+.modal-overlay.active { opacity: 1; display: flex; }
+
+/* شاشة النجاح */
 .success-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #10b981, #34d399);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 60;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s;
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: linear-gradient(135deg,#10b981,#34d399);
+  color:white;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:60;
+  opacity:0;
+  visibility:hidden;
+  transition: opacity 0.5s, visibility 0.5s;
 }
-.success-screen.visible {
-    opacity: 1;
-    visibility: visible;
-}
+.success-screen.visible { opacity:1; visibility:visible; }
+
 .slideshow-container {
-    position: relative;
-    width: 550px;
-    max-width: 95%;
-    height: 350px;
-    border-radius: 0.75rem;
-    overflow: hidden;
-    margin-bottom: 2rem;
+  position:relative;
+  width:400px;
+  height:260px;
+  border-radius:0.75rem;
+  overflow:hidden;
+  margin-bottom:1.5rem;
 }
 .slideshow-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
-    border: 3px solid white;
-    border-radius: 0.75rem;
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity 1.2s ease-in-out;
 }
-.slideshow-image.active {
-    opacity: 1;
+.slideshow-image.active { opacity:1; }
+
+.vote-btn {
+  background-image: linear-gradient(45deg, #007bff 0%, #00c6ff 100%);
+  transition: all 0.3s ease;
 }
+.vote-btn:hover { transform: translateY(-2px); box-shadow:0 6px 20px rgba(0,162,255,0.5);}
 </style>
 </head>
-
 <body>
 
-<audio id="successAudio" src="success_music.mp3" loop></audio>
+<audio id="successAudio" src="success_music.mp3" loop preload="auto"></audio>
 
+<!-- شاشة النجاح -->
 <div id="successScreen" class="success-screen">
-    <svg class="w-24 h-24 mb-6" fill="none" stroke="white" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-    <h1 class="text-4xl md:text-5xl font-extrabold mb-4">تم تسجيل دعمك بنجاح!</h1>
-    <p class="text-lg md:text-xl mb-8">شكراً لثقتك ودعمك لحملة <strong>تحالف الغدير</strong>.</p>
+  <svg class="w-20 h-20 mb-5" fill="none" stroke="white" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+  <h1 class="text-3xl font-extrabold mb-3">تم تسجيل دعمك بنجاح!</h1>
+  <p class="text-lg mb-6">هله بأهل الهمة والنخوة! شكراً لدعمك <strong>تحالف الغدير</strong> 🇮🇶</p>
 
-    <div id="slideshowContainer" class="slideshow-container"></div>
+  <div id="slideshowContainer" class="slideshow-container"></div>
 
-    <p class="text-base md:text-lg italic font-light mt-8">بصوتك نرسم المستقبل.</p>
+  <button id="toggleAudioBtn" class="px-5 py-2 bg-white text-gray-800 font-bold rounded-full shadow-md hover:bg-gray-100 transition">
+    🎵 <span id="audioText">إيقاف/تشغيل الأغنية</span>
+  </button>
+</div>
 
-    <button id="toggleAudioBtn"
-        class="mt-5 px-5 py-2 bg-white text-gray-800 rounded-full font-bold shadow-md hover:bg-gray-100 transition">
-        🎵 <span id="audioText">تشغيل الأغنية</span>
+<!-- بطاقة المرشح -->
+<div id="campaignCard" class="max-w-xs w-full bg-white rounded-xl overflow-hidden card-shadow text-gray-800">
+  <header class="candidate-header flex flex-col items-center">
+    <img src="candidate.png" alt="صورة المرشح" class="candidate-photo mb-4">
+    <p class="text-base font-bold text-gray-700">تحالف الغدير</p>
+    <h1 class="text-3xl font-extrabold text-gray-800 mb-1 mt-1">إبراهيم الشمري</h1>
+    <p class="text-sm italic text-gray-500">المهندس - إجيتك يا الفقير</p>
+    <div class="absolute bottom-0 right-0 p-2 campaign-bg rounded-tl-lg">
+         <p class="text-sm font-black text-white">رقم: 187</p>
+    </div>
+  </header>
+
+  <div class="p-6">
+    <h3 class="text-xl font-bold mb-5 text-gray-800 border-r-4 border-gray-400 pr-3">أهداف الحملة</h3>
+    <ul class="space-y-4 text-gray-600">
+      <li>✅ دعم البنية التحتية الرياضية.</li>
+      <li>💻 التحول الرقمي للحكومة.</li>
+      <li>🎓 تطوير التعليم وربطه بالعمل.</li>
+    </ul>
+  </div>
+
+  <div class="p-6 pt-0 text-center">
+    <button id="showModalBtn" class="w-full text-white font-extrabold py-3 rounded-xl text-xl vote-btn shadow-lg">
+      أؤكد دعمي للمرشح
     </button>
+  </div>
+
+  <div class="bg-gray-100 p-3 text-center text-xs text-gray-500 border-t rounded-b-xl">
+    <p>تم التصميم بواسطة: <span class="font-bold campaign-primary">y_0h_</span></p>
+  </div>
 </div>
 
-<div id="campaignCard" class="max-w-xs w-full bg-white text-gray-800 rounded-xl overflow-hidden card-shadow">
-    <header class="candidate-header flex flex-col items-center">
-        <img src="candidate.png" alt="صورة المرشح" class="candidate-photo mb-4">
-        <p class="text-base font-bold text-gray-600">تحالف الغدير</p>
-        <h1 class="text-3xl font-extrabold text-gray-900 mb-1 mt-1">إبراهيم الشمري</h1>
-        <p class="text-sm italic text-gray-500">المهندس - إجيتك يا الفقير</p>
-        <div class="absolute bottom-0 right-0 p-2 campaign-bg rounded-tl-lg">
-            <p class="text-sm font-black text-white">رقم: 187</p>
-        </div>
-    </header>
-
-    <div class="p-6">
-        <h3 class="text-xl font-bold mb-5 border-r-4 border-gray-300 pr-3">أهداف الحملة</h3>
-        <ul class="space-y-3 text-gray-700">
-            <li>✅ دعم البنية التحتية الرياضية والشباب.</li>
-            <li>💻 التحول الرقمي لحكومة إلكترونية شفافة.</li>
-            <li>🎓 إصلاح التعليم وربطه بفرص العمل.</li>
-        </ul>
-    </div>
-
-    <div class="p-6 pt-0 text-center">
-        <button id="showModalBtn"
-            class="w-full text-white font-extrabold py-3 rounded-xl text-xl vote-btn shadow-lg">
-            أؤكد دعمي للمرشح
-        </button>
-    </div>
-
-    <div class="bg-gray-100 p-3 text-center text-xs text-gray-500 border-t rounded-b-xl">
-        <p>تم التصميم بواسطة: <span class="font-bold campaign-primary">y_0h_ × GPT-5</span></p>
-    </div>
-</div>
-
+<!-- نافذة التسجيل -->
 <div id="supportModal" class="modal-overlay fixed inset-0 items-center justify-center p-4">
-    <div class="bg-white rounded-xl max-w-sm w-full p-6 card-shadow relative text-gray-800">
-        <button id="closeModalBtn" class="absolute top-3 left-3 text-gray-500 hover:text-gray-800">
-            ✕
-        </button>
-        <h4 class="text-2xl font-bold campaign-primary mb-2">تسجيل الدعم للمرشح</h4>
-        <p class="text-sm text-gray-500 mb-6">يرجى ملء النموذج لتأكيد انضمامك لحملة تحالف الغدير.</p>
+  <div class="bg-white rounded-xl max-w-sm w-full p-6 card-shadow relative text-gray-800">
+    <button id="closeModalBtn" class="absolute top-3 left-3 text-gray-500 hover:text-gray-800 text-2xl">×</button>
+    <h4 class="text-2xl font-bold text-[#007bff] mb-2">تسجيل الدعم</h4>
+    <p class="text-sm text-gray-500 mb-6">يرجى إدخال بياناتك لتأكيد الدعم.</p>
 
-        <form id="supportForm">
-            <div class="mb-4">
-                <label for="supporterName" class="block text-sm font-medium mb-1">الاسم الكامل:</label>
-                <input type="text" id="supporterName" name="supporterName" required
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-[#007bff] focus:border-[#007bff]">
-            </div>
-            <div class="mb-4">
-                <label for="supporterPhone" class="block text-sm font-medium mb-1">رقم الهاتف:</label>
-                <input type="tel" id="supporterPhone" name="supporterPhone" required pattern="07[0-9]{8}"
-                    placeholder="07XXXXXXXX"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-[#007bff] focus:border-[#007bff]">
-            </div>
-            <div class="mb-6">
-                <label for="favoriteFood" class="block text-sm font-medium mb-1">أكلتك المفضلة:</label>
-                <input type="text" id="favoriteFood" name="favoriteFood" placeholder="مثال: برياني، كباب، تمن وقيمة..."
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-[#007bff] focus:border-[#007bff]">
-            </div>
+    <form id="supportForm">
+      <label class="block text-sm mb-1">الاسم الكامل:</label>
+      <input type="text" required class="w-full mb-4 px-3 py-2 border border-gray-300 rounded-lg focus:ring-[#007bff]">
 
-            <button type="submit"
-                class="w-full vote-btn text-white font-bold py-2 rounded-lg hover:opacity-90 transition">
-                أؤكد دعمي للمرشح
-            </button>
-        </form>
-    </div>
+      <label class="block text-sm mb-1">رقم الهاتف:</label>
+      <input type="text" required placeholder="أي رقم" class="w-full mb-4 px-3 py-2 border border-gray-300 rounded-lg focus:ring-[#007bff]">
+
+      <label class="block text-sm mb-1">أكلتك المفضلة:</label>
+      <input type="text" placeholder="مثال: كباب، برياني..." class="w-full mb-6 px-3 py-2 border border-gray-300 rounded-lg focus:ring-[#007bff]">
+
+      <button type="submit" class="w-full vote-btn text-white font-bold py-2 rounded-lg hover:opacity-90 transition">
+        أؤكد دعمي
+      </button>
+    </form>
+  </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const audioPlayer = document.getElementById('successAudio');
-    const toggleAudioBtn = document.getElementById('toggleAudioBtn');
-    const audioText = document.getElementById('audioText');
-    const campaignCard = document.getElementById('campaignCard');
-    const successScreen = document.getElementById('successScreen');
-    const modal = document.getElementById('supportModal');
-    const showBtn = document.getElementById('showModalBtn');
-    const closeBtn = document.getElementById('closeModalBtn');
-    const form = document.getElementById('supportForm');
-    const slideshowContainer = document.getElementById('slideshowContainer');
+document.addEventListener("DOMContentLoaded", () => {
+  const audioPlayer = document.getElementById("successAudio");
+  const toggleAudioBtn = document.getElementById("toggleAudioBtn");
+  const audioText = document.getElementById("audioText");
+  const campaignCard = document.getElementById("campaignCard");
+  const successScreen = document.getElementById("successScreen");
+  const modal = document.getElementById("supportModal");
+  const showBtn = document.getElementById("showModalBtn");
+  const closeBtn = document.getElementById("closeModalBtn");
+  const form = document.getElementById("supportForm");
+  const slideshowContainer = document.getElementById("slideshowContainer");
 
-    const slideshowImages = ['image.png', 'image1.png', 'image2.png', 'image3.png'];
-    let currentSlide = 0;
+  const slideshowImages = ["image.png","image1.png","image2.png","image3.png"];
+  let currentSlide = 0;
 
-    slideshowImages.forEach((src, i) => {
-        const img = document.createElement('img');
-        img.src = src;
-        img.className = 'slideshow-image' + (i === 0 ? ' active' : '');
-        slideshowContainer.appendChild(img);
-    });
+  slideshowImages.forEach((src,i)=>{
+    const img=document.createElement("img");
+    img.src=src;
+    img.className="slideshow-image"+(i===0?" active":"");
+    slideshowContainer.appendChild(img);
+  });
+  const slides = slideshowContainer.querySelectorAll(".slideshow-image");
 
-    const slides = slideshowContainer.querySelectorAll('.slideshow-image');
+  const startSlideshow = ()=>{
+    setInterval(()=>{
+      slides[currentSlide].classList.remove("active");
+      currentSlide=(currentSlide+1)%slides.length;
+      slides[currentSlide].classList.add("active");
+    },3000);
+  };
 
-    const startSlideshow = () => {
-        setInterval(() => {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }, 3000);
-    };
+  toggleAudioBtn.addEventListener("click",()=>{
+    if(audioPlayer.paused){ audioPlayer.play(); audioText.textContent="إيقاف الأغنية"; }
+    else{ audioPlayer.pause(); audioText.textContent="تشغيل الأغنية"; }
+  });
 
-    const toggleAudio = async () => {
-        try {
-            if (audioPlayer.paused) {
-                await audioPlayer.play();
-                audioText.textContent = 'إيقاف الأغنية';
-            } else {
-                audioPlayer.pause();
-                audioText.textContent = 'تشغيل الأغنية';
-            }
-        } catch (e) {
-            console.error('تعذر تشغيل الصوت:', e);
-        }
-    };
+  showBtn.addEventListener("click",()=>{ modal.classList.add("active"); modal.style.display="flex"; });
+  closeBtn.addEventListener("click",()=>{ modal.classList.remove("active"); setTimeout(()=>modal.style.display="none",300); });
+  modal.addEventListener("click",(e)=>{ if(e.target===modal) modal.classList.remove("active"); });
 
-    const showModal = () => {
-        modal.classList.add('active');
-        modal.style.display = 'flex';
-    };
-    const hideModal = () => {
-        modal.classList.remove('active');
-        setTimeout(() => modal.style.display = 'none', 300);
-    };
-
-    const showSuccessScreen = () => {
-        campaignCard.style.display = 'none';
-        successScreen.classList.add('visible');
-        startSlideshow();
-    };
-
-    toggleAudioBtn.addEventListener('click', toggleAudio);
-    showBtn.addEventListener('click', showModal);
-    closeBtn.addEventListener('click', hideModal);
-    modal.addEventListener('click', e => { if (e.target === modal) hideModal(); });
-
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-        hideModal();
-        setTimeout(showSuccessScreen, 400);
-        form.reset();
-    });
+  form.addEventListener("submit",(e)=>{
+    e.preventDefault();
+    modal.classList.remove("active");
+    setTimeout(()=>{
+      campaignCard.style.display="none";
+      successScreen.classList.add("visible");
+      audioPlayer.play().catch(()=>console.log("فشل تشغيل الأغنية"));
+      startSlideshow();
+    },300);
+    form.reset();
+  });
 });
 </script>
+
 </body>
 </html>
