@@ -9,28 +9,51 @@
 /* إضافة خط عربي حديث وواضح */
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
 body {
-font-family: 'Cairo', sans-serif;
-background-color: #f0f4f8;
-overflow-x: hidden;
-min-height: 100vh;
-display: flex;
-align-items: center;
-justify-content: center;
-padding: 1rem;
+    font-family: 'Cairo', sans-serif;
+    /* خلفية داكنة (مقابلة للخلفية في التصميم المرفق) */
+    background-color: #0b1a2e; 
+    background-image: radial-gradient(circle at top left, rgba(0, 123, 255, 0.1) 0%, transparent 50%),
+                      radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
 }
-.campaign-color {
-background-color: #007bff; /* اللون الأزرق الأساسي */
+.campaign-primary {
+    color: #007bff; /* اللون الأزرق الأساسي */
 }
-.campaign-text {
-color: #007bff;
+.campaign-bg {
+    background-color: #007bff;
 }
 .card-shadow {
-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    /* ظل احترافي خفيف */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
+/* تنسيق خاص لقسم صورة المرشح */
+.candidate-header {
+    background-color: #f7f9fc;
+    border-radius: 12px 12px 0 0;
+    overflow: hidden;
+    position: relative;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+    border-bottom: 5px solid #007bff;
+}
+.candidate-photo {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+    box-shadow: 0 0 0 5px #eef5ff;
+}
+
     /* إعدادات النافذة المنبثقة (Modal) */
     .modal-overlay {
-        background-color: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(3px);
+        background-color: rgba(0, 0, 0, 0.85); /* تغشية داكنة جداً */
+        backdrop-filter: blur(8px); 
         z-index: 50;
         display: none; 
         opacity: 0;
@@ -41,7 +64,7 @@ box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         display: flex;
     }
     
-    /* شاشة النجاح الخضراء (أصبحت أبسط) */
+    /* شاشة النجاح الخضراء */
     .success-screen {
         position: fixed;
         top: 0;
@@ -65,12 +88,14 @@ box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         visibility: visible;
     }
 
-    /* أنماط عرض الشرائح */
+    /* أنماط عرض الشرائح - تم التعديل هنا لملء الصورة */
     .slideshow-image {
-        width: 450px; 
-        max-width: 90%;
-        height: 280px;
-        object-fit: cover;
+        /* تحديد حجم الحاوية */
+        width: 100%; 
+        height: 100%;
+        /* الخاصية الأهم: جعل الصورة تملأ الحاوية بالكامل */
+        object-fit: cover; 
+        
         opacity: 0; 
         transition: opacity 1.5s ease-in-out; 
         position: absolute;
@@ -84,13 +109,16 @@ box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     }
     .slideshow-container {
         position: relative;
-        width: 480px; 
+        /* زيادة حجم الحاوية لتبدو الصورة أكبر */
+        width: 550px; 
         max-width: 95%;
-        height: 300px;
+        height: 350px;
         margin-bottom: 2rem;
         display: flex;
         justify-content: center;
         align-items: center;
+        border-radius: 0.75rem; /* rounded-lg */
+        overflow: hidden; /* لإخفاء أجزاء الصور الزائدة عن الحاوية */
     }
     /* تصميم زر التصويت ليكون جذاباً */
     .vote-btn {
@@ -105,6 +133,9 @@ box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 
 </head>
 <body>
+    
+<audio id="successAudio" src="success_music.mp3" loop></audio>
+
 <div id="successScreen" class="success-screen">
     <svg id="successIcon" class="w-24 h-24 mb-6 text-white transition-opacity duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
     
@@ -117,33 +148,34 @@ box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     <p class="text-base md:text-lg italic font-light mt-8">بصوتك نرسم المستقبل.</p>
 </div>
 
-<div id="campaignCard" class="max-w-md w-full bg-white rounded-xl overflow-hidden card-shadow transition-all duration-300">
+<div id="campaignCard" class="max-w-xs w-full bg-white rounded-xl overflow-hidden card-shadow transition-all duration-300">
 
-    <header class="p-6 md:p-8 text-center border-b border-gray-100">
-        <div class="flex justify-center items-center mb-4">
-            <svg class="w-8 h-8 campaign-text ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-            <span class="text-xl font-black text-gray-700">تحالف الغدير</span>
+    <header class="candidate-header flex flex-col items-center">
+        <img src="candidate.png" alt="صورة المرشح إبراهيم الشمري" class="candidate-photo mb-4">
+        
+        <p class="text-base font-bold text-gray-700">تحالف الغدير</p>
+        <h1 class="text-3xl font-extrabold text-gray-800 mb-1 mt-1">إبراهيم الشمري</h1>
+        <p class="text-sm italic text-gray-500">المهندس - إجيتك يا الفقير</p>
+        <div class="absolute bottom-0 right-0 p-2 campaign-bg rounded-tl-lg">
+             <p class="text-sm font-black text-white">رقم: 187</p>
         </div>
-        <h1 class="text-4xl font-extrabold text-gray-800 mb-1">المهندس إبراهيم الشمري</h1>
-        <p class="text-lg italic text-gray-600">إجيتك يا الفقير</p>
-        <p class="text-sm font-bold text-gray-500 mt-2">رقم المرشح: <span class="campaign-text">187</span></p>
     </header>
 
-    <div class="p-6 md:p-8">
-        <h3 class="text-xl font-bold mb-4 text-gray-800 border-r-4 border-[#007bff] pr-3">أولوياتي في الخدمة</h3>
+    <div class="p-6">
+        <h3 class="text-xl font-bold mb-5 text-gray-800 border-r-4 border-gray-400 pr-3">أهداف الحملة</h3>
         
-        <ul class="space-y-3 text-gray-600">
-            <li class="flex items-center">
-                <span class="w-2 h-2 campaign-color rounded-full ml-2 flex-shrink-0"></span>
-                <span class="font-medium">تحتاني وطوبة:</span> دعم البنية التحتية الرياضية والشباب.
+        <ul class="space-y-4 text-gray-600">
+            <li class="flex items-start">
+                <svg class="w-6 h-6 campaign-primary ml-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="font-medium text-lg">دعم البنية التحتية الرياضية والشباب.</span>
             </li>
-            <li class="flex items-center">
-                <span class="w-2 h-2 campaign-color rounded-full ml-2 flex-shrink-0"></span>
-                <span class="font-medium">التحول الرقمي:</span> لحكومة إلكترونية شفافة وفعالة.
+            <li class="flex items-start">
+                <svg class="w-6 h-6 campaign-primary ml-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <span class="font-medium text-lg">التحول الرقمي لحكومة إلكترونية شفافة.</span>
             </li>
-            <li class="flex items-center">
-                <span class="w-2 h-2 campaign-color rounded-full ml-2 flex-shrink-0"></span>
-                <span class="font-medium">إصلاح التعليم:</span> وربطه بفرص العمل في سوق العراق.
+            <li class="flex items-start">
+                <svg class="w-6 h-6 campaign-primary ml-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18s-3.332.477-4.5 1.253"></path></svg>
+                <span class="font-medium text-lg">إصلاح التعليم وربطه بفرص العمل.</span>
             </li>
         </ul>
     </div>
@@ -170,7 +202,7 @@ box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     </div>
     
     <div class="bg-gray-100 p-3 text-center text-xs text-gray-500 border-t rounded-b-xl">
-        <p>تم التصميم بواسطة: <span class="font-bold campaign-text">y_0h_</span></p>
+        <p>تم التصميم بواسطة: <span class="font-bold campaign-primary">y_0h_</span></p>
     </div>
     
 </div>
@@ -182,7 +214,7 @@ box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
 
-        <h4 class="text-2xl font-bold text-gray-800 mb-2 campaign-text">تسجيل الدعم للمرشح</h4>
+        <h4 class="text-2xl font-bold text-gray-800 mb-2 campaign-primary">تسجيل الدعم للمرشح</h4>
         <p class="text-sm text-gray-500 mb-6">يرجى ملء النموذج التالي لتأكيد انضمامك لحملة تحالف الغدير.</p>
 
         <form id="supportForm">
@@ -211,6 +243,7 @@ box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         const showBtn = document.getElementById('showModalBtn');
         const closeBtn = document.getElementById('closeModalBtn');
         const form = document.getElementById('supportForm');
+        const audioPlayer = document.getElementById('successAudio'); // متغير لملف الصوت
         
         // قائمة الصور التي سيتم عرضها في عرض الشرائح
         const slideshowImages = [
@@ -229,8 +262,7 @@ box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             img.src = src;
             img.className = 'slideshow-image';
             img.onerror = function() {
-                // في حال فشل تحميل الصورة، يتم إخفاؤها
-                img.style.display = 'none';
+                // في حال فشل تحميل الصورة
                 console.error('Failed to load image:', src);
             };
             if (index === 0) {
@@ -279,6 +311,13 @@ box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 
         // دالة لإظهار شاشة النجاح
         const showSuccessScreen = () => {
+            // تشغيل الأغنية
+            audioPlayer.play().catch(error => {
+                // يمكن أن يفشل التشغيل التلقائي بسبب سياسات المتصفحات
+                console.warn("Audio autoplay failed, browser policy might prevent it:", error);
+                // يمكن إضافة إشعار للمستخدم للضغط لتشغيل الصوت يدويا إذا أردت
+            });
+
             // إخفاء البطاقة الرئيسية وإظهار شاشة النجاح
             campaignCard.style.display = 'none';
             successScreen.classList.add('visible');
