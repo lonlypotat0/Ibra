@@ -10,7 +10,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
 body {
     font-family: 'Cairo', sans-serif;
-    /* خلفية داكنة (مقابلة للخلفية في التصميم المرفق) */
+    /* خلفية داكنة */
     background-color: #0b1a2e; 
     background-image: radial-gradient(circle at top left, rgba(0, 123, 255, 0.1) 0%, transparent 50%),
                       radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
@@ -88,18 +88,15 @@ body {
         visibility: visible;
     }
 
-    /* أنماط عرض الشرائح - تم التعديل هنا لملء الصورة */
+    /* أنماط عرض الشرائح */
     .slideshow-image {
-        /* تحديد حجم الحاوية */
         width: 100%; 
         height: 100%;
-        /* الخاصية الأهم: جعل الصورة تملأ الحاوية بالكامل */
         object-fit: cover; 
-        
         opacity: 0; 
         transition: opacity 1.5s ease-in-out; 
         position: absolute;
-        border-radius: 0.75rem; /* rounded-lg */
+        border-radius: 0.75rem; 
         box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
         border: 3px solid white;
     }
@@ -109,7 +106,6 @@ body {
     }
     .slideshow-container {
         position: relative;
-        /* زيادة حجم الحاوية لتبدو الصورة أكبر */
         width: 550px; 
         max-width: 95%;
         height: 350px;
@@ -117,8 +113,8 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 0.75rem; /* rounded-lg */
-        overflow: hidden; /* لإخفاء أجزاء الصور الزائدة عن الحاوية */
+        border-radius: 0.75rem; 
+        overflow: hidden; 
     }
     /* تصميم زر التصويت ليكون جذاباً */
     .vote-btn {
@@ -134,7 +130,7 @@ body {
 </head>
 <body>
     
-<audio id="successAudio" src="success_music.mp3" loop></audio>
+<audio id="successAudio" src="success_music.mp3" loop muted></audio>
 
 <div id="successScreen" class="success-screen">
     <svg id="successIcon" class="w-24 h-24 mb-6 text-white transition-opacity duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -249,12 +245,12 @@ body {
         const closeBtn = document.getElementById('closeModalBtn');
         const form = document.getElementById('supportForm');
         
-        // متغيرات الصوت الجديدة
+        // متغيرات الصوت
         const audioPlayer = document.getElementById('successAudio');
         const toggleAudioBtn = document.getElementById('toggleAudioBtn');
         const audioIcon = document.getElementById('audioIcon');
         const audioText = document.getElementById('audioText');
-        let isPlaying = false; 
+        let isMuted = true; // الحالة الافتراضية الآن هي صامت (Muted) لتجاوز قيود المتصفح
 
         // قائمة الصور التي سيتم عرضها في عرض الشرائح
         const slideshowImages = [
@@ -297,23 +293,27 @@ body {
             }, 3000); 
         };
 
-        // دالة للتحكم في تشغيل/إيقاف الصوت
+        // دالة للتحكم في تشغيل/إيقاف (كتم) الصوت
         const toggleAudio = () => {
-            if (isPlaying) {
-                audioPlayer.pause();
-                // أيقونة تشغيل
-                audioIcon.innerHTML = `<path d="M5.5 11.5a1 1 0 100 2 1 1 0 000-2zM4 9a.5.5 0 01.5-.5h.5a.5.5 0 010 1H4.5A.5.5 0 014 9zM4 14a.5.5 0 01.5-.5h.5a.5.5 0 010 1H4.5a.5.5 0 01-.5-.5zM17.5 7.5a.5.5 0 010 1h-.5a.5.5 0 010-1h.5zM17.5 16a.5.5 0 010 1h-.5a.5.5 0 010-1h.5zM15 15.5a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM15 8a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM10 18a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM10 6a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM6 18a.5.5 0 01.5-.5h.5a.5.5 0 010 1H6.5a.5.5 0 01-.5-.5zM6 6a.5.5 0 01.5-.5h.5a.5.5 0 010 1H6.5a.5.5 0 01-.5-.5z"/></svg>`;
-                audioText.textContent = 'تشغيل الأغنية';
-            } else {
-                audioPlayer.play().catch(error => {
-                     console.error("Manual audio play failed:", error);
-                });
+            if (isMuted) {
+                // إلغاء كتم الصوت وتشغيله
+                audioPlayer.muted = false;
+                audioPlayer.play().catch(error => console.error("Error playing audio:", error));
+                
                 // أيقونة إيقاف
                 audioIcon.innerHTML = `<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.5 9A1.5 1.5 0 005 10.5v3A1.5 1.5 0 006.5 15h7A1.5 1.5 0 0015 13.5v-3A1.5 1.5 0 0013.5 9h-7z" clip-rule="evenodd" />`; 
                 audioText.textContent = 'إيقاف الأغنية';
+            } else {
+                // كتم الصوت
+                audioPlayer.muted = true;
+                
+                // أيقونة تشغيل
+                audioIcon.innerHTML = `<path d="M5.5 11.5a1 1 0 100 2 1 1 0 000-2zM4 9a.5.5 0 01.5-.5h.5a.5.5 0 010 1H4.5A.5.5 0 014 9zM4 14a.5.5 0 01.5-.5h.5a.5.5 0 010 1H4.5a.5.5 0 01-.5-.5zM17.5 7.5a.5.5 0 010 1h-.5a.5.5 0 010-1h.5zM17.5 16a.5.5 0 010 1h-.5a.5.5 0 010-1h.5zM15 15.5a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM15 8a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM10 18a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM10 6a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM6 18a.5.5 0 01.5-.5h.5a.5.5 0 010 1H6.5a.5.5 0 01-.5-.5zM6 6a.5.5 0 01.5-.5h.5a.5.5 0 010 1H6.5a.5.5 0 01-.5-.5z"/></svg>`;
+                audioText.textContent = 'تشغيل الأغنية';
             }
-            isPlaying = !isPlaying;
+            isMuted = !isMuted;
         };
+
 
         // دالة لإظهار النافذة
         const showModal = () => {
@@ -331,16 +331,15 @@ body {
 
         // دالة لإظهار شاشة النجاح
         const showSuccessScreen = () => {
-            // محاولة التشغيل التلقائي
-            audioPlayer.play().then(() => {
-                isPlaying = true;
-                // تحديث الأيقونة والنص إلى وضع الإيقاف
-                audioIcon.innerHTML = `<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.5 9A1.5 1.5 0 005 10.5v3A1.5 1.5 0 006.5 15h7A1.5 1.5 0 0015 13.5v-3A1.5 1.5 0 0013.5 9h-7z" clip-rule="evenodd" />`; 
-                audioText.textContent = 'إيقاف الأغنية';
-            }).catch(error => {
-                isPlaying = false;
-                console.warn("Audio autoplay failed, user needs to click:", error);
+            // محاولة التشغيل التلقائي (سيتم تشغيله صامتاً بسبب خاصية muted في الـ HTML)
+            audioPlayer.play().catch(error => {
+                console.warn("Audio play started muted but failed to auto-start:", error);
             });
+            
+            // تهيئة الزر ليعرض خيار "تشغيل" وينتظر النقر لإلغاء الكتم
+            audioIcon.innerHTML = `<path d="M5.5 11.5a1 1 0 100 2 1 1 0 000-2zM4 9a.5.5 0 01.5-.5h.5a.5.5 0 010 1H4.5A.5.5 0 014 9zM4 14a.5.5 0 01.5-.5h.5a.5.5 0 010 1H4.5a.5.5 0 01-.5-.5zM17.5 7.5a.5.5 0 010 1h-.5a.5.5 0 010-1h.5zM17.5 16a.5.5 0 010 1h-.5a.5.5 0 010-1h.5zM15 15.5a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM15 8a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM10 18a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM10 6a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM6 18a.5.5 0 01.5-.5h.5a.5.5 0 010 1H6.5a.5.5 0 01-.5-.5zM6 6a.5.5 0 01.5-.5h.5a.5.5 0 010 1H6.5a.5.5 0 01-.5-.5z"/></svg>`;
+            audioText.textContent = 'تشغيل الأغنية';
+
 
             // إخفاء البطاقة الرئيسية وإظهار شاشة النجاح
             campaignCard.style.display = 'none';
@@ -353,7 +352,7 @@ body {
         // ربط أزرار الإجراءات بالوظائف
         showBtn.addEventListener('click', showModal);
         closeBtn.addEventListener('click', hideModal);
-        toggleAudioBtn.addEventListener('click', toggleAudio); // ربط الزر الجديد
+        toggleAudioBtn.addEventListener('click', toggleAudio); // ربط الزر الجديد بالوظيفة
 
         // إخفاء النافذة عند الضغط خارجها
         modal.addEventListener('click', (e) => {
