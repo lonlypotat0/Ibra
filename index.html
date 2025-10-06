@@ -68,6 +68,8 @@ body {
   opacity:0;
   visibility:hidden;
   transition: opacity 0.5s, visibility 0.5s;
+  padding:1rem;
+  text-align:center;
 }
 .success-screen.visible { opacity:1; visibility:visible; }
 
@@ -98,8 +100,6 @@ body {
 </head>
 <body>
 
-<audio id="successAudio" src="success_music.mp3" loop muted preload="auto"></audio>
-
 <!-- شاشة النجاح -->
 <div id="successScreen" class="success-screen">
   <svg class="w-20 h-20 mb-5" fill="none" stroke="white" viewBox="0 0 24 24">
@@ -109,9 +109,6 @@ body {
   <h1 class="text-3xl font-extrabold mb-3">تم تسجيل دعمك بنجاح!</h1>
   <p class="text-lg mb-6">شكراً لدعمك حملة "تحالف الغدير"</p>
   <div id="slideshowContainer" class="slideshow-container"></div>
-  <button id="toggleAudioBtn" class="px-5 py-2 bg-white text-gray-800 font-bold rounded-full shadow-md hover:bg-gray-100 transition">
-    🎵 <span id="audioText">تشغيل/إيقاف الأغنية</span>
-  </button>
 </div>
 
 <!-- بطاقة المرشح -->
@@ -157,7 +154,7 @@ body {
       <label class="block text-sm mb-1">الاسم الكامل:</label>
       <input type="text" required class="w-full mb-4 px-3 py-2 border border-gray-300 rounded-lg focus:ring-[#007bff]">
 
-      <label class="block text-sm mb-1">رقم الهاتف:</label>
+      <label class="block text-sm mb-1">رقم الهاتف (اكتب رقمك هنا يا حلو):</label>
       <input type="text" placeholder="" class="w-full mb-4 px-3 py-2 border border-gray-300 rounded-lg focus:ring-[#007bff]">
 
       <label class="block text-sm mb-1">أكلتك المفضلة:</label>
@@ -172,9 +169,6 @@ body {
 
 <script>
 document.addEventListener("DOMContentLoaded",()=>{
-  const audio=document.getElementById("successAudio");
-  const toggleBtn=document.getElementById("toggleAudioBtn");
-  const audioText=document.getElementById("audioText");
   const campaignCard=document.getElementById("campaignCard");
   const successScreen=document.getElementById("successScreen");
   const modal=document.getElementById("supportModal");
@@ -202,11 +196,6 @@ document.addEventListener("DOMContentLoaded",()=>{
     },3000);
   };
 
-  toggleBtn.addEventListener("click",()=>{
-    if(audio.paused){ audio.play(); audioText.textContent="إيقاف الأغنية"; }
-    else{ audio.pause(); audioText.textContent="تشغيل الأغنية"; }
-  });
-
   showBtn.addEventListener("click",()=>{ modal.classList.add("active"); modal.style.display="flex"; });
   closeBtn.addEventListener("click",()=>{ modal.classList.remove("active"); setTimeout(()=>modal.style.display="none",300); });
   modal.addEventListener("click",(e)=>{ if(e.target===modal) modal.classList.remove("active"); });
@@ -217,14 +206,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     setTimeout(()=>{
       campaignCard.style.display="none";
       successScreen.classList.add("visible");
-      audio.muted=false;
-      audio.play().catch(()=>console.log("فشل تشغيل الأغنية"));
-
-      setTimeout(()=>{
-        successScreen.classList.remove("visible");
-        startSlideshow();
-      },3000);
-
+      startSlideshow();
     },300);
     form.reset();
   });
