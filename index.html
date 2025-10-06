@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إبراهيم الشمري - تحالف الغدير</title>
+    <!-- تضمين Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* إضافة خط عربي حديث وواضح */
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap');
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f0f4f8; 
+            overflow-x: hidden; /* منع التمرير الأفقي */
+        }
+        .card-shadow {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        /* اللون الأساسي للحملة (أزرق مشرق) */
+        .campaign-color {
+            background-color: #007bff; 
+        }
+        .campaign-text {
+            color: #007bff;
+        }
+        /* الخلفية المموجة الزرقاء */
+        .wavy-bg {
+            background: linear-gradient(135deg, #007bff 0%, #00c6ff 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%); 
+        }
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        .main-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        /* تأثير البيكسلات حول الاسم (باستخدام الظلال المتعددة) */
+        .pixel-glow {
+            text-shadow: 
+                2px 2px 0 #00c6ff, 
+                -2px -2px 0 #00c6ff, 
+                4px 4px 0 rgba(255, 255, 255, 0.7);
+        }
+        /* إعدادات النافذة المنبثقة (Modal) */
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 50;
+            display: none; 
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+        }
+        .modal-content {
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        /* شاشة النجاح الخضراء */
+        .success-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #10b981; /* لون أخضر زمردي */
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 60;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+        .success-screen.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="main-container">
+
+    <!-- شاشة النجاح الخضراء (تظهر بعد الإرسال) -->
+    <div id="successScreen" class="success-screen">
+        <svg class="w-24 h-24 mb-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        
+        <!-- الصورة المحدثة: يجب أن يكون اسم الملف "image.png" في نفس مجلد ملف HTML عند النشر -->
+        <img id="successImage" src="image.png" onerror="this.style.display='none'" class="rounded-xl w-48 h-auto mb-8 shadow-2xl border-4 border-white object-cover">
+        
+        <h1 class="text-5xl font-extrabold mb-4">تم تسجيل دعمك بنجاح!</h1>
+        <p class="text-xl font-medium mb-8">شكراً جزيلاً لثقتك وتصويتك لحملة **تحالف الغدير**.</p>
+        <p class="text-lg italic font-light">بصوتك نبني الغد.</p>
+    </div>
+
+    <!-- بطاقة الحملة الرئيسية -->
+    <div id="campaignCard" class="max-w-md w-full bg-white rounded-xl overflow-hidden card-shadow transition-all duration-300">
+
+        <!-- قسم العنوان والشعار -->
+        <div class="relative pt-12 pb-24 text-center text-white wavy-bg">
+            <div class="absolute top-4 right-4 flex items-center text-sm font-black text-white px-2 py-1 rounded-md opacity-90 border border-white/50">
+                <span class="ml-2">تحالف الغدير</span> 
+                <!-- أيقونة التحالف -->
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            </div>
+            
+            <!-- اسم المرشح مع تأثير البيكسلات -->
+            <h1 class="text-3xl font-black mb-1 mt-10 pixel-glow">المهندس</h1>
+            <h2 class="text-6xl font-extrabold pixel-glow" style="line-height: 1.1;">إبراهيم الشمري</h2>
+            <p class="mt-4 text-xl italic font-light">إجيتك يا الفقير</p>
+            <p class="text-xs mt-1">رقم المرشح: 187</p>
+        </div>
+
+        <!-- قسم الوعود والبرنامج الانتخابي -->
+        <div class="p-6 md:p-8">
+            <h3 class="text-2xl font-extrabold mb-6 text-gray-800 border-r-4 border-[#007bff] pr-3">برنامج عملي وطموح</h3>
+            
+            <!-- نقاط البرنامج الانتخابي بتصميم أيقوني -->
+            <ul class="space-y-5">
+                <!-- الوعد الأول: تحتاني وطوبة -->
+                <li class="flex items-start bg-gray-50 p-3 rounded-lg hover:bg-gray-100 transition duration-200">
+                    <!-- أيقونة كرة القدم (طوبة) -->
+                    <svg class="w-6 h-6 campaign-text flex-shrink-0 ml-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22a10 10 0 0010-10c0-5.523-4.477-10-10-10S2 6.477 2 12s4.477 10 10 10zM12 18l-6.5-3.75 6.5-3.75 6.5 3.75L12 18zM12 18V6"/></svg>
+                    <div>
+                        <p class="font-bold text-gray-700">تحتاني وطوبة</p>
+                        <p class="text-sm text-gray-500">دعم الشباب وتطوير البنية التحتية الرياضية.</p>
+                    </div>
+                </li>
+                <!-- الوعد الثاني: التحول الرقمي -->
+                <li class="flex items-start bg-gray-50 p-3 rounded-lg hover:bg-gray-100 transition duration-200">
+                    <svg class="w-6 h-6 campaign-text flex-shrink-0 ml-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9.25 10M11 20H4c-1.105 0-2-.895-2-2V6c0-1.105.895-2 2-2h16c1.105 0 2 .895 2 2v6m-4 5h-4m4 0h4m-4 0V9m0 8h-4m4 0h4"></path></svg>
+                    <div>
+                        <p class="font-bold text-gray-700">التحول الرقمي للخدمات الحكومية</p>
+                        <p class="text-sm text-gray-500">نحو حكومة إلكترونية شفافة وفعالة.</p>
+                    </div>
+                </li>
+                <!-- الوعد الثالث: إصلاح التعليم -->
+                <li class="flex items-start bg-gray-50 p-3 rounded-lg hover:bg-gray-100 transition duration-200">
+                    <svg class="w-6 h-6 campaign-text flex-shrink-0 ml-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21c-4.418 0-8-3.582-8-8s3.582-8 8-8 8 3.582 8 8-3.582 8-8 8zM12 17v-4m0-4V7m0 10H8m4 0h4m-4 0a4 4 0 100-8 4 4 0 000 8z"></path></svg>
+                    <div>
+                        <p class="font-bold text-gray-700">إصلاح التعليم وربطه بسوق العمل</p>
+                        <p class="text-sm text-gray-500">توفير فرص عمل حقيقية للشباب العراقي.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- قسم الدعوة للتصويت والتواصل -->
+        <div class="p-6 pt-0 text-center">
+            
+            <!-- زر التصويت الجذاب - يستدعي دالة إظهار النموذج -->
+            <button id="showModalBtn" class="w-full campaign-color text-white font-extrabold py-3 rounded-xl text-xl hover-lift transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-[#007bff]/50 mt-4 shadow-xl">
+                اضغط هنا لدعم تحالف الغدير
+            </button>
+            
+            <p class="text-sm text-gray-500 mt-2 font-semibold">التصويت هو صوتك للتغيير</p>
+
+            <!-- معلومات التواصل / منصات التواصل الاجتماعي -->
+            <div class="flex justify-center space-x-6 space-x-reverse mt-6 border-t pt-4">
+                <a href="#" class="text-gray-600 hover:text-[#007bff] transition duration-200" title="Discord">
+                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M19.738 5.75c-.628-.485-1.34-.84-2.112-1.074-1.284-.39-2.61-.59-3.958-.59H12c-1.348 0-2.674.2-3.958.59-.772.234-1.484.589-2.112 1.074C4.84 6.74 4.09 7.97 4.09 9.38v5.24c0 1.41.75 2.64 1.588 3.635.628.485 1.34.84 2.112 1.074 1.284.39 2.61.59 3.958.59h.001c1.348 0 2.674-.2 3.958-.59.772-.234 1.484-.589 2.112-1.074.838-.995 1.588-2.225 1.588-3.635V9.38c0-1.41-.75-2.64-1.588-3.63zm-4.48 9.32c-.378 0-.685-.307-.685-.685s.307-.685.685-.685.685.307.685.685-.307.685-.685.685zm-5.074 0c-.378 0-.685-.307-.685-.685s.307-.685.685-.685.685.307.685.685-.307.685-.685.685zM8.38 9.255c-.274-.274-.424-.64-.424-1.025 0-.385.15-.751.424-1.025.274-.274.64-.424 1.025-.424.385 0 .751.15 1.025.424l.588.588.588-.588c.274-.274.64-.424 1.025-.424.385 0 .751.15 1.025.424.274.274.424.64.424 1.025 0 .385-.15.751-.424 1.025L13.435 10.3c-.274.274-.64.424-1.025.424s-.751-.15-1.025-.424L8.38 9.255z"/></svg>
+                </a>
+                <a href="#" class="flex items-center text-gray-600 hover:text-[#007bff] transition duration-200" title="Instagram">
+                    <svg class="w-7 h-7 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.2 4.6c.3 0 .5.2.5.5s-.2.5-.5.5h-.3c-.3 0-.5-.2-.5-.5s.2-.5.5-.5h.3zm-1.7 1.8c-.8 0-1.5.7-1.5 1.5s.7 1.5 1.5 1.5 1.5-.7 1.5-1.5-.7-1.5-1.5-1.5zm-3.2 0c-.8 0-1.5.7-1.5 1.5s.7 1.5 1.5 1.5 1.5-.7 1.5-1.5-.7-1.5-1.5-1.5zm6.5 7.6c-.3 0-.5-.2-.5-.5s.2-.5.5-.5h.3c.3 0 .5.2.5.5s-.2.5-.5.5h-.3z"/></svg>
+                    <span class="text-sm font-semibold">ibr37im</span>
+                </a>
+                <a href="#" class="text-gray-600 hover:text-[#007bff] transition duration-200" title="Facebook">
+                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12C22 6.477 17.523 2 12 2S2 6.477 2 12c0 4.991 3.657 9.127 8.438 9.873V15.4h-2.12v-3.475h2.12v-2.61c0-2.09 1.275-3.237 3.136-3.237.888 0 1.65.066 1.874.095v2.163h-1.28c-1.01 0-1.21.48-1.21 1.19v1.519h2.39l-.31 3.475h-2.08v6.473C18.343 21.127 22 16.991 22 12z"/></svg>
+                </a>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- النافذة المنبثقة (Modal) لجمع البيانات -->
+    <div id="supportModal" class="modal-overlay fixed inset-0 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl max-w-sm w-full p-6 card-shadow relative modal-content">
+            
+            <!-- زر الإغلاق -->
+            <button id="closeModalBtn" class="absolute top-3 left-3 text-gray-500 hover:text-gray-800 transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <h4 class="text-2xl font-bold text-gray-800 mb-2 campaign-text">تسجيل الدعم للمرشح</h4>
+            <p class="text-sm text-gray-500 mb-6">يرجى ملء النموذج التالي لتأكيد انضمامك لحملة تحالف الغدير.</p>
+
+            <form id="supportForm">
+                <div class="mb-4">
+                    <label for="supporterName" class="block text-sm font-medium text-gray-700 mb-1">الاسم الكامل:</label>
+                    <input type="text" id="supporterName" name="supporterName" placeholder="أدخل اسمك هنا" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150">
+                </div>
+                <div class="mb-6">
+                    <label for="supporterPhone" class="block text-sm font-medium text-gray-700 mb-1">رقم الهاتف (اختياري):</label>
+                    <input type="tel" id="supporterPhone" name="supporterPhone" placeholder="07XXXXXXXX" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition duration-150">
+                </div>
+                <button type="submit" class="w-full campaign-color text-white font-bold py-2 rounded-lg hover:opacity-90 transition duration-200">
+                    أؤكد دعمي للمرشح
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- كود JavaScript للتحكم بالنموذج المنبثق وشاشة النجاح -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const campaignCard = document.getElementById('campaignCard');
+            const successScreen = document.getElementById('successScreen');
+            const modal = document.getElementById('supportModal');
+            const showBtn = document.getElementById('showModalBtn');
+            const closeBtn = document.getElementById('closeModalBtn');
+            const form = document.getElementById('supportForm');
+
+            // دالة لإظهار النافذة
+            const showModal = () => {
+                modal.style.display = 'flex'; 
+                setTimeout(() => {
+                    modal.classList.add('active');
+                }, 10);
+            };
+
+            // دالة لإخفاء النافذة
+            const hideModal = () => {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 300);
+            };
+
+            // دالة لإظهار شاشة النجاح
+            const showSuccessScreen = () => {
+                // إخفاء البطاقة الرئيسية لجعل الشاشة الخضراء تملأ المكان
+                campaignCard.style.display = 'none';
+                // إظهار الشاشة الخضراء
+                successScreen.classList.add('visible');
+            };
+
+            // ربط زر الدعم بظهور النافذة
+            showBtn.addEventListener('click', showModal);
+            closeBtn.addEventListener('click', hideModal);
+
+            // إخفاء النافذة عند الضغط خارجها
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    hideModal();
+                }
+            });
+
+            // معالجة إرسال النموذج (تؤدي إلى شاشة النجاح)
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // 1. إخفاء النافذة المنبثقة
+                hideModal();
+                
+                // 2. إظهار شاشة النجاح الخضراء
+                setTimeout(showSuccessScreen, 350); // تأخير بسيط بعد إغلاق الـ Modal
+
+                // 3. مسح محتويات النموذج (اختياري)
+                form.reset();
+            });
+            
+            // تهيئة النافذة المنبثقة كـ 'display: none' عند التحميل
+            modal.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
