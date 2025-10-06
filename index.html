@@ -11,27 +11,22 @@
 body {
   font-family: 'Cairo', sans-serif;
   background-color: #0b1a2e;
-  background-image: radial-gradient(circle at top left, rgba(0, 123, 255, 0.1) 0%, transparent 50%),
-                    radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.05) 0%, transparent 60%),
-                    url(''); /* يمكن إضافة نقش عراقي خفيف هنا */
+  background-image: radial-gradient(circle at top left, rgba(0,123,255,0.1) 0%, transparent 50%),
+                    radial-gradient(circle at bottom right, rgba(255,255,255,0.05) 0%, transparent 60%),
+                    url(''); /* يمكن وضع نقش عراقي خفيف هنا */
   overflow-x: hidden;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  position: relative;
   color: #fff;
 }
 
-/* الأزرق الأساسي */
 .campaign-primary { color: #007bff; }
 .campaign-bg { background-color: #007bff; }
-
-/* البطاقة */
 .card-shadow { box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
 
-/* الصورة */
 .candidate-header {
   background-color: #f7f9fc;
   border-radius: 12px 12px 0 0;
@@ -50,7 +45,6 @@ body {
   box-shadow: 0 0 0 5px #eef5ff;
 }
 
-/* Modal */
 .modal-overlay {
   background-color: rgba(0,0,0,0.8);
   backdrop-filter: blur(6px);
@@ -61,7 +55,6 @@ body {
 }
 .modal-overlay.active { opacity: 1; display: flex; }
 
-/* شاشة النجاح */
 .success-screen {
   position: fixed;
   top:0; left:0;
@@ -85,7 +78,7 @@ body {
   height:260px;
   border-radius:0.75rem;
   overflow:hidden;
-  margin-bottom:1.5rem;
+  margin-top:1.5rem;
 }
 .slideshow-image {
   position:absolute;
@@ -106,7 +99,7 @@ body {
 </head>
 <body>
 
-<audio id="successAudio" src="success_music.mp3" loop preload="auto"></audio>
+<audio id="successAudio" src="success_music.mp3" loop muted preload="auto"></audio>
 
 <!-- شاشة النجاح -->
 <div id="successScreen" class="success-screen">
@@ -115,12 +108,10 @@ body {
     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
   </svg>
   <h1 class="text-3xl font-extrabold mb-3">تم تسجيل دعمك بنجاح!</h1>
-  <p class="text-lg mb-6">هله بأهل الهمة والنخوة! شكراً لدعمك <strong>تحالف الغدير</strong> 🇮🇶</p>
-
+  <p class="text-lg mb-6">شكراً لدعمك حملة "تحالف الغدير"</p>
   <div id="slideshowContainer" class="slideshow-container"></div>
-
   <button id="toggleAudioBtn" class="px-5 py-2 bg-white text-gray-800 font-bold rounded-full shadow-md hover:bg-gray-100 transition">
-    🎵 <span id="audioText">إيقاف/تشغيل الأغنية</span>
+    🎵 <span id="audioText">تشغيل/إيقاف الأغنية</span>
   </button>
 </div>
 
@@ -181,20 +172,20 @@ body {
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const audioPlayer = document.getElementById("successAudio");
-  const toggleAudioBtn = document.getElementById("toggleAudioBtn");
-  const audioText = document.getElementById("audioText");
-  const campaignCard = document.getElementById("campaignCard");
-  const successScreen = document.getElementById("successScreen");
-  const modal = document.getElementById("supportModal");
-  const showBtn = document.getElementById("showModalBtn");
-  const closeBtn = document.getElementById("closeModalBtn");
-  const form = document.getElementById("supportForm");
-  const slideshowContainer = document.getElementById("slideshowContainer");
+document.addEventListener("DOMContentLoaded",()=>{
+  const audio=document.getElementById("successAudio");
+  const toggleBtn=document.getElementById("toggleAudioBtn");
+  const audioText=document.getElementById("audioText");
+  const campaignCard=document.getElementById("campaignCard");
+  const successScreen=document.getElementById("successScreen");
+  const modal=document.getElementById("supportModal");
+  const showBtn=document.getElementById("showModalBtn");
+  const closeBtn=document.getElementById("closeModalBtn");
+  const form=document.getElementById("supportForm");
+  const slideshowContainer=document.getElementById("slideshowContainer");
 
-  const slideshowImages = ["image.png","image1.png","image2.png","image3.png"];
-  let currentSlide = 0;
+  const slideshowImages=["image.png","image1.png","image2.png","image3.png"];
+  let currentSlide=0;
 
   slideshowImages.forEach((src,i)=>{
     const img=document.createElement("img");
@@ -202,9 +193,9 @@ document.addEventListener("DOMContentLoaded", () => {
     img.className="slideshow-image"+(i===0?" active":"");
     slideshowContainer.appendChild(img);
   });
-  const slides = slideshowContainer.querySelectorAll(".slideshow-image");
+  const slides=slideshowContainer.querySelectorAll(".slideshow-image");
 
-  const startSlideshow = ()=>{
+  const startSlideshow=()=>{
     setInterval(()=>{
       slides[currentSlide].classList.remove("active");
       currentSlide=(currentSlide+1)%slides.length;
@@ -212,9 +203,9 @@ document.addEventListener("DOMContentLoaded", () => {
     },3000);
   };
 
-  toggleAudioBtn.addEventListener("click",()=>{
-    if(audioPlayer.paused){ audioPlayer.play(); audioText.textContent="إيقاف الأغنية"; }
-    else{ audioPlayer.pause(); audioText.textContent="تشغيل الأغنية"; }
+  toggleBtn.addEventListener("click",()=>{
+    if(audio.paused){ audio.play(); audioText.textContent="إيقاف الأغنية"; }
+    else{ audio.pause(); audioText.textContent="تشغيل الأغنية"; }
   });
 
   showBtn.addEventListener("click",()=>{ modal.classList.add("active"); modal.style.display="flex"; });
@@ -227,8 +218,15 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(()=>{
       campaignCard.style.display="none";
       successScreen.classList.add("visible");
-      audioPlayer.play().catch(()=>console.log("فشل تشغيل الأغنية"));
-      startSlideshow();
+      audio.muted=false;
+      audio.play().catch(()=>console.log("فشل تشغيل الأغنية"));
+
+      // بعد 3 ثواني تخفي الشاشة وتبدأ عرض الصور
+      setTimeout(()=>{
+        successScreen.classList.remove("visible");
+        startSlideshow();
+      },3000);
+
     },300);
     form.reset();
   });
