@@ -146,6 +146,11 @@ body {
         </div>
 
     <p class="text-base md:text-lg italic font-light mt-8">بصوتك نرسم المستقبل.</p>
+    
+    <button id="toggleAudioBtn" class="mt-4 px-4 py-2 bg-white text-gray-800 rounded-full font-bold shadow-md hover:bg-gray-100 transition flex items-center">
+        <svg id="audioIcon" class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 11.5a1 1 0 100 2 1 1 0 000-2zM4 9a.5.5 0 01.5-.5h.5a.5.5 0 010 1H4.5A.5.5 0 014 9zM4 14a.5.5 0 01.5-.5h.5a.5.5 0 010 1H4.5a.5.5 0 01-.5-.5zM17.5 7.5a.5.5 0 010 1h-.5a.5.5 0 010-1h.5zM17.5 16a.5.5 0 010 1h-.5a.5.5 0 010-1h.5zM15 15.5a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM15 8a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM10 18a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM10 6a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM6 18a.5.5 0 01.5-.5h.5a.5.5 0 010 1H6.5a.5.5 0 01-.5-.5zM6 6a.5.5 0 01.5-.5h.5a.5.5 0 010 1H6.5a.5.5 0 01-.5-.5z"/></svg>
+        <span id="audioText">تشغيل الأغنية</span>
+    </button>
 </div>
 
 <div id="campaignCard" class="max-w-xs w-full bg-white rounded-xl overflow-hidden card-shadow transition-all duration-300">
@@ -243,8 +248,14 @@ body {
         const showBtn = document.getElementById('showModalBtn');
         const closeBtn = document.getElementById('closeModalBtn');
         const form = document.getElementById('supportForm');
-        const audioPlayer = document.getElementById('successAudio'); // متغير لملف الصوت
         
+        // متغيرات الصوت الجديدة
+        const audioPlayer = document.getElementById('successAudio');
+        const toggleAudioBtn = document.getElementById('toggleAudioBtn');
+        const audioIcon = document.getElementById('audioIcon');
+        const audioText = document.getElementById('audioText');
+        let isPlaying = false; 
+
         // قائمة الصور التي سيتم عرضها في عرض الشرائح
         const slideshowImages = [
             'image.png', 
@@ -262,7 +273,6 @@ body {
             img.src = src;
             img.className = 'slideshow-image';
             img.onerror = function() {
-                // في حال فشل تحميل الصورة
                 console.error('Failed to load image:', src);
             };
             if (index === 0) {
@@ -276,24 +286,34 @@ body {
 
         // دالة تشغيل عرض الشرائح
         const startSlideshow = () => {
-            // إخفاء علامة الصح بعد 2 ثانية لبدء التركيز على الصور
             setTimeout(() => {
                 successIcon.style.opacity = '0'; 
             }, 2000);
             
-            // تشغيل الدورة
             slideshowInterval = setInterval(() => {
-                // إزالة فئة النشاط من الشريحة الحالية
                 slideElements[currentSlide].classList.remove('active');
-                
-                // الانتقال إلى الشريحة التالية (أو العودة للأولى)
                 currentSlide = (currentSlide + 1) % slideElements.length;
-                
-                // إضافة فئة النشاط للشريحة الجديدة
                 slideElements[currentSlide].classList.add('active');
-            }, 3000); // تغيير كل 3 ثواني 
+            }, 3000); 
         };
 
+        // دالة للتحكم في تشغيل/إيقاف الصوت
+        const toggleAudio = () => {
+            if (isPlaying) {
+                audioPlayer.pause();
+                // أيقونة تشغيل
+                audioIcon.innerHTML = `<path d="M5.5 11.5a1 1 0 100 2 1 1 0 000-2zM4 9a.5.5 0 01.5-.5h.5a.5.5 0 010 1H4.5A.5.5 0 014 9zM4 14a.5.5 0 01.5-.5h.5a.5.5 0 010 1H4.5a.5.5 0 01-.5-.5zM17.5 7.5a.5.5 0 010 1h-.5a.5.5 0 010-1h.5zM17.5 16a.5.5 0 010 1h-.5a.5.5 0 010-1h.5zM15 15.5a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM15 8a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM10 18a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM10 6a.5.5 0 01.5-.5h.5a.5.5 0 010 1h-.5a.5.5 0 01-.5-.5zM6 18a.5.5 0 01.5-.5h.5a.5.5 0 010 1H6.5a.5.5 0 01-.5-.5zM6 6a.5.5 0 01.5-.5h.5a.5.5 0 010 1H6.5a.5.5 0 01-.5-.5z"/></svg>`;
+                audioText.textContent = 'تشغيل الأغنية';
+            } else {
+                audioPlayer.play().catch(error => {
+                     console.error("Manual audio play failed:", error);
+                });
+                // أيقونة إيقاف
+                audioIcon.innerHTML = `<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.5 9A1.5 1.5 0 005 10.5v3A1.5 1.5 0 006.5 15h7A1.5 1.5 0 0015 13.5v-3A1.5 1.5 0 0013.5 9h-7z" clip-rule="evenodd" />`; 
+                audioText.textContent = 'إيقاف الأغنية';
+            }
+            isPlaying = !isPlaying;
+        };
 
         // دالة لإظهار النافذة
         const showModal = () => {
@@ -311,11 +331,15 @@ body {
 
         // دالة لإظهار شاشة النجاح
         const showSuccessScreen = () => {
-            // تشغيل الأغنية
-            audioPlayer.play().catch(error => {
-                // يمكن أن يفشل التشغيل التلقائي بسبب سياسات المتصفحات
-                console.warn("Audio autoplay failed, browser policy might prevent it:", error);
-                // يمكن إضافة إشعار للمستخدم للضغط لتشغيل الصوت يدويا إذا أردت
+            // محاولة التشغيل التلقائي
+            audioPlayer.play().then(() => {
+                isPlaying = true;
+                // تحديث الأيقونة والنص إلى وضع الإيقاف
+                audioIcon.innerHTML = `<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.5 9A1.5 1.5 0 005 10.5v3A1.5 1.5 0 006.5 15h7A1.5 1.5 0 0015 13.5v-3A1.5 1.5 0 0013.5 9h-7z" clip-rule="evenodd" />`; 
+                audioText.textContent = 'إيقاف الأغنية';
+            }).catch(error => {
+                isPlaying = false;
+                console.warn("Audio autoplay failed, user needs to click:", error);
             });
 
             // إخفاء البطاقة الرئيسية وإظهار شاشة النجاح
@@ -329,6 +353,7 @@ body {
         // ربط أزرار الإجراءات بالوظائف
         showBtn.addEventListener('click', showModal);
         closeBtn.addEventListener('click', hideModal);
+        toggleAudioBtn.addEventListener('click', toggleAudio); // ربط الزر الجديد
 
         // إخفاء النافذة عند الضغط خارجها
         modal.addEventListener('click', (e) => {
